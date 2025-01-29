@@ -1,0 +1,8 @@
+<h2><%= @project.title %></h2>
+<p><%= @project.description %></p>
+<p>Faculty:
+  <%= @project.faculty.name %></p>
+<%= if current_user.is_a?(Student)
+  link_to "Apply", new_student_application_path(current_user)
+end %>
+<p>(Add authentication and potential application creation later)</p>

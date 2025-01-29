@@ -1,0 +1,11 @@
+<h1>Available Research Projects</h1>
+
+<% @projects.each do |project| %>
+  <div>
+    <h2><%= project.title %></h2>
+    <p><%= project.description %></p>
+    <p>Faculty:
+      <%= project.faculty.name %></p>
+    <%= link_to "View Details", project_path(project) %>
+  </div>
+<% end %>
