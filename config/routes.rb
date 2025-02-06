@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :saved_projects
   resources :applications
   resources :students
-  resources :project_faculties #This one doesn't have a controller, its handled by other models.
+  resources :project_faculties # This one doesn't have a controller, its handled by other models.
   resources :faculties
   resources :projects
 

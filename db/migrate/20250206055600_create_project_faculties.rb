@@ -4,6 +4,6 @@ class CreateProjectFaculties < ActiveRecord::Migration[7.1] # Use your Rails ver
       t.references :project, null: false, foreign_key: true
       t.references :faculty, null: false, foreign_key: true
     end
-    add_index :project_faculties, [:project_id, :faculty_id], unique: true #Composite Key
+    add_index :project_faculties, [ :project_id, :faculty_id ], unique: true # Composite Key
   end
 end
