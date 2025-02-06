@@ -1,0 +1,2 @@
+module SavedProjectsHelper
+end
