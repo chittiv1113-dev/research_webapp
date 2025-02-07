@@ -18,6 +18,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "rexml"
 gem "rubocop"
+gem "dotenv-rails"
 
 gem "devise"
 gem "omniauth"
