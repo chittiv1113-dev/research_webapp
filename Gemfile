@@ -1,7 +1,5 @@
 source "https://rubygems.org"
 
-
-ruby '~> 3.3.0'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -20,12 +18,6 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "rexml"
 gem "rubocop"
-gem "dotenv-rails"
-
-gem "devise"
-gem "omniauth"
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
