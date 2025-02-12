@@ -12,13 +12,13 @@
 # db/seeds.rb
 
 # Create users FIRST
-admin_user = User.create!(email: 'davidvanderklay@tamu.edu', name: 'Admin User', provider: 'google_oauth2', uid: '123', password: Devise.friendly_token[0,20]) # Use a real UID in a real app
-faculty_user = User.create!(email: 'davidvanderklay@gmail.com', name: 'Faculty User', provider: 'google_oauth2', uid: '456', password: Devise.friendly_token[0,20]) # Use a real UID in a real app
-student_user = User.create!(email: 'georgelantin@gmail.com', name: 'Student User', provider: 'google_oauth2', uid: '789', password: Devise.friendly_token[0,20]) # Use a real UID in a real app
+admin_user = User.create!(email: 'davidvanderklay@tamu.edu', name: 'Admin User', provider: 'google_oauth2', uid: '123') # Use a real UID in a real app
+faculty_user = User.create!(email: 'davidvanderklay@gmail.com', name: 'Faculty User', provider: 'google_oauth2', uid: '456') # Use a real UID in a real app
+student_user = User.create!(email: 'georgelantin@gmail.com', name: 'Student User', provider: 'google_oauth2', uid: '789') # Use a real UID in a real app
 
 # THEN create the associated roles
 admin_user.create_admin!
-faculty_user.create_faculty!
+faculty_user.create_faculty!(department: "CSCE")
 student_user.create_student!(year: 2024, major: "Computer Science") # Example student data
 #Add projects later
 
