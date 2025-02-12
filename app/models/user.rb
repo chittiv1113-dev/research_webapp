@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :omniauthable, omniauth_providers: [:google_oauth2]
+  devise :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_one :student, dependent: :destroy
   has_one :faculty, dependent: :destroy
@@ -19,16 +19,16 @@ class User < ApplicationRecord
         user.provider = provider
         user.name = name
         # user.password = Devise.friendly_token[0,20] # Set a random password
-        user.save! #Explicit save, so we can call .create_admin! and others
+        user.save! # Explicit save, so we can call .create_admin! and others
 
         role = case email
-               when "admin@example.com"
+        when "admin@example.com"
                  :admin
-               when "faculty@example.com"
+        when "faculty@example.com"
                  :faculty
-               else
+        else
                  :student
-               end
+        end
 
         case role
         when :admin

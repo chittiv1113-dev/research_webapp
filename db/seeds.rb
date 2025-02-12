@@ -20,6 +20,6 @@ student_user = User.create!(email: 'georgelantin@gmail.com', name: 'Student User
 admin_user.create_admin!
 faculty_user.create_faculty!(department: "CSCE")
 student_user.create_student!(year: 2024, major: "Computer Science") # Example student data
-#Add projects later
+# Add projects later
 
 # You'll need to create projects, etc., later.

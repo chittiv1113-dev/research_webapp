@@ -12,4 +12,3 @@ class CreateAdmins < ActiveRecord::Migration[8.0] # Use the correct version
     end
   end
 end
-
