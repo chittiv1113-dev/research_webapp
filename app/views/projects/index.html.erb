@@ -1,0 +1,44 @@
+<h1>Research Opportunities</h1>
+
+<% if user_signed_in? %>
+  <p>Welcome,
+    <%= current_user.name %>!</p>
+  <%= link_to "Sign Out", destroy_user_session_path %>
+
+  <% if current_user.admin? || current_user.faculty? %>
+    <%= link_to "Create New Project", "#" %>
+    <%- - new_project_path later - -%>
+    <% end %>
+
+  <% else %>
+    <p>Please sign in to view details and apply:</p>
+    <%= button_to "Sign in with Google",
+    user_google_oauth2_omniauth_authorize_path,
+    method: :post,
+    data: {
+      turbo: false,
+    } %>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.title %></td>
+          <td><%= project.description %></td>
+          <td>
+            <% if user_signed_in? && (current_user.student? || current_user.admin?) %>
+              <%= link_to "Apply", "#", class: "apply-button" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
