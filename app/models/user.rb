@@ -16,7 +16,7 @@ class User < ApplicationRecord
       u.uid = uid
       u.provider = provider
       u.name = name
-      u.password = Devise.friendly_token[0,20] # Generate a random password
+      # u.password = Devise.friendly_token[0,20] # Generate a random password
     end
 
     # If user isn't connected to a role, then we hardcode it for now.
