@@ -23,7 +23,7 @@ student_user = User.find_or_create_by!(email: 'georgelantin@gmail.com') do |u|
   u.uid      = '789'
 end
 
-# If your admin/faculty/student models are just 
+# If your admin/faculty/student models are just
 # single-table roles, you can do:
 admin_user.create_admin!
 faculty_user.create_faculty!(department: "CSCE")
@@ -328,14 +328,14 @@ project_list.each do |data|
 
 
   # Ensure this user has a Faculty record.
-  # If your logic is that every user with 
+  # If your logic is that every user with
   # these emails should be faculty, do so:
   faculty = Faculty.create!(
     user: user,
     email: data[:email],
     department: "CSCE"
   )
-  
+
 
 project = Project.create!(
   title: "#{data[:name]} Research",
