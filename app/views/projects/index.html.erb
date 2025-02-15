@@ -1,43 +1,65 @@
 <h1>Research Opportunities</h1>
 
 <% if user_signed_in? %>
-  <p>Welcome,
-    <%= current_user.name %>!</p>
+  <p>Welcome, <%= current_user.name %>!</p>
   <%= link_to "Sign Out", destroy_user_session_path %>
 
   <% if current_user.admin? || current_user.faculty? %>
     <%= link_to "Create New Project", "#" %>
-    <%#<%- - new_project_path later - -%>%>
+    <!-- Replace "#" with new_project_path or appropriate route -->
   <% end %>
 
 <% else %>
   <p>Please sign in to view details and apply:</p>
   <%= button_to "Sign in with Google",
-  user_google_oauth2_omniauth_authorize_path,
-  method: :post,
-  data: {
-    turbo: false,
-  } %>
+                user_google_oauth2_omniauth_authorize_path,
+                method: :post,
+                data: { turbo: false } %>
 <% end %>
 
-<table>
+<!-- ======================================= -->
+<!-- SEARCH FORM -->
+<!-- ======================================= -->
+<%= form_with url: projects_path, method: :get, local: true do %>
+  <%= label_tag :search, "Search Projects:" %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<h1>Research Projects</h1>
+
+<table border="1">
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Actions</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Number of Positions</th>
+      <th>Research Area</th>
+      <th>Start Semester</th>
+      <th>Descripton</th>
+      <th>Preferred Class</th>
+      <th>Other Comments</th>
+      
     </tr>
   </thead>
   <tbody>
-    <% @projects.each do |project| %>
+    <% if @projects.any? %>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.faculties.map { |f| f.user.name }.join(", ") %></td>
+          <td><%= project.faculties.map { |f| f.user.email }.join("") %></td>
+          <td><%= project.num_positions %></td>
+          <td><%= project.areas_of_research %></td>
+          <td><%= project.start_semester %></td>
+           <td><%= project.description %></td>
+          <td><%= project.prefered_class %></td>
+          <td><%= project.other_comments %></td>
+          
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= project.title %></td>
-        <td><%= project.description %></td>
-        <td>
-          <% if user_signed_in? && (current_user.student? || current_user.admin?) %>
-            <%= link_to "Apply", "#", class: "apply-button" %>
-          <% end %>
-        </td>
+        <td colspan="7" style="text-align: center;">No projects available.</td>
       </tr>
     <% end %>
   </tbody>
