@@ -320,16 +320,22 @@ project_list = [
 
 project_list.each do |data|
   # Make or find the user (Faculty).
+  user = User.find_or_create_by!(email: data[:email]) do |u|
+    u.name     = data[:name]
+    u.uid      = SecureRandom.uuid
+    u.provider = "manual"
+  end
 
 
   # Ensure this user has a Faculty record.
   # If your logic is that every user with 
   # these emails should be faculty, do so:
   faculty = Faculty.create!(
-  user: "TEST",
-  email: data[:email],
-  department: "CSCE"
-)
+    user: user,
+    email: data[:email],
+    department: "CSCE"
+  )
+  
 
 project = Project.create!(
   title: "#{data[:name]} Research",

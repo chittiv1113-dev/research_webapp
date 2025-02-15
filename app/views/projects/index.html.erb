@@ -1,7 +1,7 @@
 <h1>Research Opportunities</h1>
 
 <% if user_signed_in? %>
-  <p>Welcome, <%= current_user.name %>!</p>
+  <p>Welcome!</p>
   <%= link_to "Sign Out", destroy_user_session_path %>
 
   <% if current_user.admin? || current_user.faculty? %>
