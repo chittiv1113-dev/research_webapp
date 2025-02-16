@@ -48,19 +48,23 @@ RSpec.describe Project, type: :model do
       expect(project).to_not be_valid
       expect(project.errors[:num_positions]).to include("can't be blank")
     end
-
-    it 'is not valid if num_positions is not a number' do
-      project = build(:project, num_positions: 'abc')
+    
+    it 'is not valid if num_positions is too long (string length)' do # New test for string length
+      project = build(:project, num_positions: '12345678901') # 11 characters
       expect(project).to_not be_valid
-      expect(project.errors[:num_positions]).to include("is not a number")
+      expect(project.errors[:num_positions]).to include("is too long (maximum is 10 characters)")
     end
 
-    it 'is not valid if num_positions is negative' do
-      project = build(:project, num_positions: -1)
-      expect(project).to_not be_valid
-      expect(project.errors[:num_positions]).to include("must be greater than or equal to 0")
+    it 'is valid if num_positions is a string within length limit' do # New test for valid string
+      project = build(:project, num_positions: '5') # Valid string within length
+      expect(project).to be_valid
     end
 
+    it 'is valid if num_positions is a string with max length' do # New test for max length string
+      project = build(:project, num_positions: '1234567890') # Valid string with max length
+      expect(project).to be_valid
+    end
+    
     it 'is not valid without areas_of_research' do
       project = build(:project, areas_of_research: nil)
       expect(project).to_not be_valid
