@@ -1,5 +1,10 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
+    Rails.logger.debug "--- Google OAuth Callback ---" # Add log at the beginning
+    Rails.logger.debug "Full auth hash: #{auth.inspect}" # Log the entire auth hash
+    Rails.logger.debug "auth.info: #{auth.info.inspect}" # Log auth.info specifically
+    Rails.logger.debug "auth.info.name: #{auth.info.name.inspect}" # Log auth.info.name specifically
+    Rails.logger.debug "auth.info.full_name: #{auth.info.full_name.inspect}" # Log auth.info.full_name specifically (if you're trying this)
     user = User.from_google(**from_google_params)
 
     if user.present?
@@ -29,7 +34,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       uid: auth.uid,
       email: auth.info.email,
       name: auth.info.name,
-      provider: auth.provider # Add provider
+      provider: 'google-oauth2' # Add provider
     }
   end
 

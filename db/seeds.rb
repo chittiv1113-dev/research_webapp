@@ -5,29 +5,29 @@ require 'securerandom'
 # -------------------------------------
 # 1) Create Users (along with roles)
 # -------------------------------------
-admin_user = User.find_or_create_by!(email: 'davidvanderklay@tamu.edu') do |u|
-  u.name     = 'Admin User'
-  u.provider = 'google_oauth2'
-  u.uid      = '123' # A real UID in a real app
-end
-
-faculty_user = User.find_or_create_by!(email: 'davidvanderklay@gmail.com') do |u|
-  u.name     = 'Faculty User'
-  u.provider = 'google_oauth2'
-  u.uid      = '456'
-end
-
-student_user = User.find_or_create_by!(email: 'georgelantin@gmail.com') do |u|
-  u.name     = 'Student User'
-  u.provider = 'google_oauth2'
-  u.uid      = '789'
-end
-
-# If your admin/faculty/student models are just
-# single-table roles, you can do:
-admin_user.create_admin!
-faculty_user.create_faculty!(department: "CSCE")
-student_user.create_student!(year: 2024, major: "Computer Science")
+# admin_user = User.find_or_create_by!(email: 'davidvanderklay@tamu.edu') do |u|
+#   u.name     = 'Admin User'
+#   u.provider = 'google_oauth2'
+#   u.uid      = '123' # A real UID in a real app
+# end
+#
+# faculty_user = User.find_or_create_by!(email: 'davidvanderklay@gmail.com') do |u|
+#   u.name     = 'Faculty User'
+#   u.provider = 'google_oauth2'
+#   u.uid      = '456'
+# end
+#
+# student_user = User.find_or_create_by!(email: 'georgelantin@gmail.com') do |u|
+#   u.name     = 'Student User'
+#   u.provider = 'google_oauth2'
+#   u.uid      = '789'
+# end
+#
+# # If your admin/faculty/student models are just
+# # single-table roles, you can do:
+# admin_user.create_admin!
+# faculty_user.create_faculty!(department: "CSCE")
+# student_user.create_student!(year: 2024, major: "Computer Science")
 
 puts "Users & Roles created or found."
 
