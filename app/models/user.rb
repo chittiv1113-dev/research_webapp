@@ -21,27 +21,30 @@ class User < ApplicationRecord
         # user.password = Devise.friendly_token[0,20] # Set a random password
         user.save! # Explicit save, so we can call .create_admin! and others
 
-        role = case email
-        when "admin@example.com"
-                 :admin
-        when "faculty@example.com"
-                 :faculty
-        else
-                 :student
-        end
-
-        case role
-        when :admin
-            user.create_admin!
-        when :faculty
-            user.create_faculty!
-        when :student
-            user.create_student!
+        # Role Assignment Logic (Example based on email - CUSTOMIZE THIS)
+        if User.is_admin_email?(user.email)
+          user.create_admin! unless user.admin? # Create Admin role if email matches admin domain
+        elsif User.is_faculty_email?(user.email)
+          user.create_faculty!(department: "To be determined") unless user.faculty? # Create Faculty role if email matches faculty domain
+        elsif User.is_student_email?(user.email)
+          user.create_student!(major: "Undecided", year: 0) unless user.student? # Create Student role if email matches student domain
         end
     end
     user
   end
 
+  # Example Role Checking Methods (Customize these based on your actual criteria)
+  def self.is_admin_email?(email)
+    email == "davidvanderklay@tamu.edu" # Example: Specific admin email - CUSTOMIZE
+  end
+
+  def self.is_faculty_email?(email)
+    email == "davidvanderklay@gmail.com" # Example: faculty email - CUSTOMIZE
+  end
+
+  def self.is_student_email?(email)
+    email == "georgelantin@gmail.com" # Example: student email - CUSTOMIZE
+  end
   # Helper methods to check the user's role.
   def admin?
     admin.present?
