@@ -11,7 +11,7 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
       uid: 'testuser123', # Example UID
       info: {
         email: 'faculty@example.com', # Use a faculty email to test faculty project creation
-        name: 'Test Faculty User',
+        name: 'Test Faculty User'
         # image: '...' # You can add image if needed
       },
       credentials: {
@@ -65,5 +65,4 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
   end
 
   # You can add more scenarios, e.g., testing validation limits, etc.
-
 end

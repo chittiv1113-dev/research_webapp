@@ -34,7 +34,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       uid: auth.uid,
       email: auth.info.email,
       name: auth.info.name,
-      provider: 'google_oauth2' # Add provider
+      provider: "google_oauth2" # Add provider
     }
   end
 

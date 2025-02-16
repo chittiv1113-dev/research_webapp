@@ -28,21 +28,22 @@ class User < ApplicationRecord
           user.create_faculty!(department: "To be determined") unless user.faculty? # Create Faculty role if email matches faculty domain
         elsif User.is_student_email?(user.email)
           user.create_student!(major: "Undecided", year: 0) unless user.student? # Create Student role if email matches student domain
-      end end
+        end
+    end
     user
   end
 
-# Example Role Checking Methods (Customize these based on your actual criteria)
+  # Example Role Checking Methods (Customize these based on your actual criteria)
   def self.is_admin_email?(email)
-    email == 'davidvanderklay@tamu.edu' # Example: Specific admin email - CUSTOMIZE
+    email == "davidvanderklay@tamu.edu" # Example: Specific admin email - CUSTOMIZE
   end
 
   def self.is_faculty_email?(email)
-    email == 'davidvanderklay@gmail.com' # Example: faculty email - CUSTOMIZE
+    email == "davidvanderklay@gmail.com" # Example: faculty email - CUSTOMIZE
   end
 
   def self.is_student_email?(email)
-    email == 'georgelantin@gmail.com' # Example: student email - CUSTOMIZE
+    email == "georgelantin@gmail.com" # Example: student email - CUSTOMIZE
   end
   # Helper methods to check the user's role.
   def admin?

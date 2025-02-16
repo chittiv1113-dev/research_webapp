@@ -1,6 +1,6 @@
 # app/controllers/projects_controller.rb
 class ProjectsController < ApplicationController
-  before_action :authorize_faculty_admin, only: [:new, :create]
+  before_action :authorize_faculty_admin, only: [ :new, :create ]
   def index
     @projects = Project.all
 
@@ -23,8 +23,8 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
   end
-  
-  
+
+
   # app/controllers/projects_controller.rb
   def create
     @project = Project.new(project_params)
@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
       end
       @project.faculties << current_user.faculty if current_user.faculty
 
-      redirect_to projects_path, notice: 'Project was successfully created.'
+      redirect_to projects_path, notice: "Project was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -56,13 +56,11 @@ class ProjectsController < ApplicationController
 
   def authorize_faculty_admin
     unless current_user_is_faculty_or_admin?
-      redirect_to root_path, alert: 'You are not authorized to create projects.'
+      redirect_to root_path, alert: "You are not authorized to create projects."
     end
   end
 
   def current_user_is_faculty_or_admin?
     current_user.admin? || current_user.faculty?
   end
-  
-
 end
