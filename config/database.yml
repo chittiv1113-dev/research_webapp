@@ -14,7 +14,13 @@ test:
   database: myapp_test
 
 production:
-  <<: *default
-  # Heroku uses DATABASE_URL in production:
-  url: <%= ENV["DATABASE_URL"] %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  primary:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+
+  cable:
+    <<: *default
+    # If you want to store cable data in the same DB:
+    url: <%= ENV["DATABASE_URL"] %>
+    # Optionally specify separate migrations path if you have them:
+    # migrations_paths: db/cable_migrate
