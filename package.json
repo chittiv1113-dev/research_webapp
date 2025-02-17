@@ -14,11 +14,16 @@
     "webpack-cli": "^3.3.12"
   },
   "engines": {
-    "node": "18.x",
+    "node": "16.x",
     "yarn": "1.22.x"
   },
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3"
   }
+}
+
+"engines": {
+  "node": "16.x",
+  "yarn": "1.22.x"
 }
