@@ -84,20 +84,22 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: research_webapp_production
-    username: research_webapp
-    password: <%= ENV["RESEARCH_WEBAPP_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: research_webapp_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: research_webapp_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: research_webapp_production_cable
-    migrations_paths: db/cable_migrate
+url:
+  <%= ENV['DATABASE_URL'] %>
+  # primary: &primary_production
+  #   <<: *default
+  #   database: research_webapp_production
+  #   username: research_webapp
+  #   password: <%= ENV["RESEARCH_WEBAPP_DATABASE_PASSWORD"] %>
+  # cache:
+  #   <<: *primary_production
+  #   database: research_webapp_production_cache
+  #   migrations_paths: db/cache_migrate
+  # queue:
+  #   <<: *primary_production
+  #   database: research_webapp_production_queue
+  #   migrations_paths: db/queue_migrate
+  # cable:
+  #   <<: *primary_production
+  #   database: research_webapp_production_cable
+  #   migrations_paths: db/cable_migrate
