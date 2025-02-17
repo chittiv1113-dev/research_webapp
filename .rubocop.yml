@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
@@ -88,4 +90,3 @@ Rails/EnumHash:
 
 # (The rest of the Rails conventions about models, controllers, keys, etc., are
 # *not* directly checkable by RuboCop.  They are design principles.)
-
