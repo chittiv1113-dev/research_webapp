@@ -1,4 +1,5 @@
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+module Users
+     class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     Rails.logger.debug "--- Google OAuth Callback ---" # Add log at the beginning
     Rails.logger.debug "Full auth hash: #{auth.inspect}" # Log the entire auth hash
@@ -19,11 +20,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   protected
 
-  def after_omniauth_failure_path_for(_scope)
+  def after_omniauth_failure_path_for _scope
     new_user_session_path # Redirect to user sign-in
   end
 
-  def after_sign_in_path_for(resource_or_scope)
+  def after_sign_in_path_for resource_or_scope
     stored_location_for(resource_or_scope) || root_path
   end
 
@@ -41,4 +42,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def auth
     @auth ||= request.env["omniauth.auth"]
   end
+     end
 end

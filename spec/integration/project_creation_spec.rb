@@ -12,7 +12,7 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
       info: {
         email: 'faculty@example.com', # Use a faculty email to test faculty project creation
         name: 'Test Faculty User'
-        # image: '...' # You can add image if needed
+           # image: '...' # You can add image if needed
       },
       credentials: {
         token: 'mock_token',
@@ -48,7 +48,7 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
 
     expect(page).to have_content("Project was successfully created.")
     expect(page).to have_content("Innovative Research Project System Test") # Check for system test title
-    # Add more expectations as needed to verify project details are displayed
+       # Add more expectations as needed to verify project details are displayed
   end
 
   scenario "Faculty user cannot create a project with invalid input" do
@@ -64,5 +64,5 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
     expect(page).to have_content("Start semester can't be blank")
   end
 
-  # You can add more scenarios, e.g., testing validation limits, etc.
+     # You can add more scenarios, e.g., testing validation limits, etc.
 end
