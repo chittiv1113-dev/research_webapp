@@ -1,5 +1,6 @@
 
-class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+module Admins
+     class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     admin = Admin.from_google(**from_google_params)
 
@@ -15,11 +16,11 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   protected
 
-  def after_omniauth_failure_path_for(_scope)
+  def after_omniauth_failure_path_for _scope
     new_admin_session_path
   end
 
-  def after_sign_in_path_for(resource_or_scope)
+  def after_sign_in_path_for resource_or_scope
     stored_location_for(resource_or_scope) || root_path
   end
 
@@ -37,4 +38,5 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def auth
     @auth ||= request.env["omniauth.auth"]
   end
+     end
 end

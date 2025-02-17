@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :uid, presence: true
   validates :provider, presence: true
 
-  def self.from_google(email:, name:, uid:, provider:)
+  def self.from_google email:, name:, uid:, provider:
     user = find_or_initialize_by(email: email) # Use initialize
 
     if user.new_record?  # Only set attributes if it's a new record
@@ -22,11 +22,11 @@ class User < ApplicationRecord
         user.save! # Explicit save, so we can call .create_admin! and others
 
         # Role Assignment Logic (Example based on email - CUSTOMIZE THIS)
-        if User.is_admin_email?(user.email)
+        if User.admin_email?(user.email)
           user.create_admin! unless user.admin? # Create Admin role if email matches admin domain
-        elsif User.is_faculty_email?(user.email)
+        elsif User.faculty_email?(user.email)
           user.create_faculty!(department: "To be determined") unless user.faculty? # Create Faculty role if email matches faculty domain
-        elsif User.is_student_email?(user.email)
+        elsif User.student_email?(user.email)
           user.create_student!(major: "Undecided", year: 0) unless user.student? # Create Student role if email matches student domain
         end
     end
@@ -34,15 +34,15 @@ class User < ApplicationRecord
   end
 
   # Example Role Checking Methods (Customize these based on your actual criteria)
-  def self.is_admin_email?(email)
+  def self.admin_email? email
     email == "davidvanderklay@tamu.edu" # Example: Specific admin email - CUSTOMIZE
   end
 
-  def self.is_faculty_email?(email)
+  def self.faculty_email? email
     email == "davidvanderklay@gmail.com" # Example: faculty email - CUSTOMIZE
   end
 
-  def self.is_student_email?(email)
+  def self.student_email? email
     email == "georgelantin@gmail.com" # Example: student email - CUSTOMIZE
   end
   # Helper methods to check the user's role.

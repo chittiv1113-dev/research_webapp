@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
@@ -6,19 +8,85 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
-AllCops:
-  NewCops: enable
+# .rubocop.yml
 
-  Exclude:
-    - "db/schema.rb"
-    - "Gemfile"
-    - "lib/tasks/*.rake"
-    - "bin/*"
-    - "config/puma.rb"
-    - "config/spring.rb"
-    - "config/environments/development.rb"
-    - "config/environments/production.rb"
-    - "spec/spec_helper.rb"
+# --- General ---
+AllCops:
+  NewCops: enable # Enable new cops added in newer RuboCop versions
+
+# --- Indentation ---
+Layout/IndentationWidth:
+  Width: 5
+
+# --- Iteration ---
+#   - Use each instead of for.
+Style/For:
+  Enabled: false # Disable the 'for' loop cop (effectively encourages 'each')
+
+# --- Conditionals ---
+#   - Use unless instead of !if.
+#   - However, if you need to involve an else to your conditional, never use unless-else.
+#   - Use until instead of while! (negated condition).
+Style/NegatedIf:
+  Enabled: false # This is deprecated, but effectively prevents !if.  Rubocop will now suggest 'unless'
+Style/UnlessElse:
+  Enabled: true # Prevent 'unless ... else ...' constructs
+
+Style/NegatedWhile:
+  Enabled: false # Prevent 'while !condition'. Rubocop now suggests 'until'
+
+# --- Naming ---
+#   - Use meaningful variable names. (RuboCop can't check for "meaningful", but it can enforce case)
+#   - Use snake_case for methods and variables.
+Naming/MethodName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+Naming/VariableName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+#   - Use CamelCase for classes and modules. (Keep acronyms like HTTP, RFC, XML uppercase.).
+Naming/ClassAndModuleCamelCase:
+  Enabled: true
+
+  # The following cop helps keep acronyms uppercase.  It's not perfect,
+  # but it's the best RuboCop offers in this regard.
+Style/ClassAndModuleChildren:
+  Enabled: true
+  EnforcedStyle: nested # Or 'compact', experiment to see which you prefer
+
+#   - The names of predicate methods (methods that return a boolean value) should end in a question mark.
+#   - Avoid prefixing predicate methods with the auxiliary verbs such as "is," "does," or "can."
+Naming/PredicateName:
+  Enabled: true
+
+# --- Constants ---
+#   - Constants should be all upper case with words separated by underscores ('_').
+Naming/ConstantName:
+  Enabled: true
+
+# --- Method Definitions ---
+#   - Use def with parentheses when there are parameters. Omit the parentheses when the method doesn't accept any parameters
+Style/MethodDefParentheses:
+  Enabled: true
+  EnforcedStyle: require_no_parentheses_except_multiline
+
+# --- Disabling Cops for Comments and Old Code ---
+# (RuboCop doesn't have specific cops to *remove* comments, but you can disable
+# the cops that *require* comments)
 
 Style/Documentation:
-  Enabled: false
+  Enabled: false # Don't require class/module documentation
+
+Style/CommentAnnotation:
+  Enabled: false # Allows TODO, FIXME, etc., without specific format
+
+# --- Rails-Specific Cops ---
+# (Enable the 'rubocop-rails' gem for these to work. See instructions below.)
+
+Rails/EnumHash:
+  Enabled: true # Enforce the use of hashes for enums
+
+# (The rest of the Rails conventions about models, controllers, keys, etc., are
+# *not* directly checkable by RuboCop.  They are design principles.)
