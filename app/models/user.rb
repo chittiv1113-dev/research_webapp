@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one :admin, dependent: :destroy
 
   # Add validations, even though we use OAuth.
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
   validates :name, presence: true
   validates :uid, presence: true
   validates :provider, presence: true
