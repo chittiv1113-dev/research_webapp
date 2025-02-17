@@ -1,4 +1,4 @@
-class CreateFaculties < ActiveRecord::Migration[8.0]
+class CreateFaculties < ActiveRecord::Migration[7.2]
   def change
     create_table :faculties do |t|
       t.references :user, null: false, foreign_key: true

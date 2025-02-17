@@ -1,4 +1,4 @@
-class CreateProjectFaculties < ActiveRecord::Migration[8.0]
+class CreateProjectFaculties < ActiveRecord::Migration[7.2]
   def change
     # No primary key, using composite key
     create_table :project_faculties, id: false do |t|

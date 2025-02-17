@@ -1,5 +1,5 @@
 
-class CreateAdmins < ActiveRecord::Migration[8.0] # Use the correct version
+class CreateAdmins < ActiveRecord::Migration[7.2] # Use the correct version
   def change
     create_table :admins do |t|
       t.references :user, null: false, foreign_key: true # This is correct

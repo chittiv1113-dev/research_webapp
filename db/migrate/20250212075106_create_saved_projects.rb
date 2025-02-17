@@ -1,4 +1,4 @@
-class CreateSavedProjects < ActiveRecord::Migration[8.0] # Your Rails version
+class CreateSavedProjects < ActiveRecord::Migration[7.2] # Your Rails version
   def change
     create_table :saved_projects do |t|
       t.references :student, null: false, foreign_key: true
