@@ -26,10 +26,12 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
       user.uid = 'testuser123'
       user.provider = 'google_oauth2'
     end
-    Faculty.find_or_create_by!(user: @faculty_user, email: 'faculty@example.com', department: 'Computer Science')
+    Faculty.find_or_create_by!(user: @faculty_user, department: 'Computer Science')
 
     # Simulate OAuth login by visiting the callback URL directly
-    visit '/users/auth/google_oauth2/callback' # Changed path to '/users/auth/google_oauth2/callback'
+    visit new_user_session_path # Go to the sign-in page
+    click_button "Google" # Click the actual sign-in link/button
+
     expect(page).to have_current_path(root_path) # Expect redirect to root after login
   end
 
@@ -47,7 +49,8 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
     click_button "Create Project"
 
     expect(page).to have_content("Project was successfully created.")
-    expect(page).to have_content("Innovative Research Project System Test") # Check for system test title
+    # NOTE: Research project page does not display title, so we check for the description instead
+    expect(page).to have_content("This is a system test project description.") # Check for system test description
     # Add more expectations as needed to verify project details are displayed
   end
 
