@@ -27,17 +27,21 @@ class ProjectsController < ApplicationController
 
   # app/controllers/projects_controller.rb
   def create
+    Rails.logger.debug "project_params: #{project_params.inspect}"
     @project = Project.new(project_params)
-    if @project.save
-      Rails.logger.debug "--- Project Created ---"
-      Rails.logger.debug "Current User is Admin? #{current_user.admin?}" # Log admin status
-      Rails.logger.debug "Current User: #{current_user.inspect}"
 
-      if current_user.admin?
-        Rails.logger.debug "Associating Admin creator: #{current_user.admin.inspect}"
-        @project.admin = current_user.admin  # Explicitly set admin association
-      end
-      @project.faculties << current_user.faculty if current_user.faculty
+    if current_user.admin?
+      Rails.logger.debug "Associating Admin creator: #{current_user.admin.inspect}"
+      @project.admin_id = current_user.admin.id # <==== SET admin_id BEFORE save! - MOVED THIS LINE UP
+      Rails.logger.debug "Set project.admin_id to: #{@project.admin_id}"
+    end
+    @project.faculties << current_user.faculty if current_user.faculty
+
+    if @project.save! # <==== Now save! after admin_id is set
+      Rails.logger.debug "--- Project Created ---"
+      Rails.logger.debug "Current User is Admin? #{current_user.admin?}"
+      Rails.logger.debug "Current User: #{current_user.inspect}"
+      Rails.logger.debug "Project after save! - Admin: #{@project.admin.inspect}, Admin ID: #{@project.admin_id}"
 
       redirect_to projects_path, notice: "Project was successfully created."
     else
@@ -50,7 +54,7 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(
       :title, :description, :num_positions, :areas_of_research,
-      :start_semester, :prefered_class, :other_comments
+      :start_semester, :prefered_class, :other_comments, :admin_id
     )
   end
 

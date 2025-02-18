@@ -45,8 +45,27 @@
     <% if @projects.any? %>
       <% @projects.each do |project| %>
         <tr>
-          <td><%= project.faculties.map { |f| f.user.name }.join(", ") %></td>
-          <td><%= project.faculties.map { |f| f.user.email }.join("") %></td>
+          <td>
+            <% if project.faculties.any? %>
+              <%= project.faculties.map { |f| f.user.name }.join(", ") %>
+            <% elsif project.admin.present? %>
+              <%= project.admin.user.name %>
+            <% else %>
+              Creator Unknown
+            <% end %>
+          </td>
+          <td>
+            <% if project.faculties.any? %>
+              <%= project.faculties.map { |f| f.user.email }.join(", ") %>
+              <%# Display Faculty Emails if associated %>
+            <% elsif project.admin.present? %>
+              <%= project.admin.user.email %>
+              <%# Display Admin Email if admin creator %>
+            <% else %>
+              Email Unknown
+              <%# Fallback if no faculty or admin associated %>
+            <% end %>
+          </td>
           <td><%= project.num_positions %></td>
           <td><%= project.areas_of_research %></td>
           <td><%= project.start_semester %></td>
