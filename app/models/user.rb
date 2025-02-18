@@ -34,8 +34,16 @@ class User < ApplicationRecord
   end
 
   # Example Role Checking Methods (Customize these based on your actual criteria)
-  def self.is_admin_email?(email)
-    email == "davidvanderklay@tamu.edu" # Example: Specific admin email - CUSTOMIZE
+   def self.is_admin_email?(email)
+    admin_emails = [
+      "davidvanderklay@tamu.edu",
+      "paulinewade@tamu.edu",
+      "sudhanvarajesh@tamu.edu",
+      "samraatg@tamu.edu",
+      "stephanie.vilas@exchange.tamu.edu",
+      "stephanie.vilas@tamu.edu"
+    ]
+    admin_emails.include?(email.downcase) # Case-insensitive email check
   end
 
   def self.is_faculty_email?(email)
