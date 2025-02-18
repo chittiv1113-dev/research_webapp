@@ -33,7 +33,7 @@ class User < ApplicationRecord
     user
   end
 
-  # Example Role Checking Methods (Customize these based on your actual criteria)
+   # Example Role Checking Methods (Customize these based on your actual criteria)
    def self.is_admin_email?(email)
     admin_emails = [
       "davidvanderklay@tamu.edu",
