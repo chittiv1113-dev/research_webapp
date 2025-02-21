@@ -67,5 +67,24 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
     expect(page).to have_content("Start semester can't be blank")
   end
 
+  scenario "Faculty user can find a project by searching for its details" do
+    project = Project.create!(
+      title: "Project to Find",
+      description: "This project will be searched for.",
+      num_positions: 1,
+      areas_of_research: "Some topic",
+      start_semester: "Mornin",
+      prefered_class: "Children",
+      other_comments: "Children",
+    )
+
+    visit projects_path
+
+    fill_in "Search", with: "Some topic" # Searching by area of research
+    click_button "Search"
+
+    expect(page).to have_content("This project will be searched for.")
+  end
+
   # You can add more scenarios, e.g., testing validation limits, etc.
 end
