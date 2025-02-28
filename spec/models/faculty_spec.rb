@@ -32,15 +32,15 @@ RSpec.describe Faculty, type: :model do
     end
 
     it 'is not valid without an email' do
-      faculty = build(:faculty, email: nil)
+      faculty = build(:faculty, user: build(:user, email: nil))
       expect(faculty).to_not be_valid
-      expect(faculty.errors[:email]).to include("can't be blank")
+      expect(faculty.user.errors[:email]).to include("can't be blank")
     end
 
     it 'is not valid if email is too long' do
-      faculty = build(:faculty, email: 'a' * 256) # Example: email length limit might be different, adjust as needed
+      faculty = build(:faculty, user: build(:user, email: 'a' * 256))
       expect(faculty).to_not be_valid
-      expect(faculty.errors[:email]).to include("is too long (maximum is 255 characters)") # Adjust message if needed
+      expect(faculty.user.errors[:email]).to include("is too long (maximum is 255 characters)") # Adjust message if needed
     end
   end
 end
