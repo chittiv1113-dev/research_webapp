@@ -31,3 +31,16 @@
     <%= yield %>
   </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let alerts = document.querySelectorAll(".alert");
+    alerts.forEach(function(alert) {
+      setTimeout(function() {
+        let bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+      }, 3000); // 3 seconds
+    });
+  });
+</script>
+
