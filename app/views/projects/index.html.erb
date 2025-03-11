@@ -26,9 +26,6 @@
   <% end %>
 </div>
 
-<!-- ======================================= -->
-<!-- SEARCH FORM (Less Wide) -->
-<!-- ======================================= -->
 <div class="d-flex justify-content-center">
   <%= form_with url: projects_path, method: :get, local: true, class: "mb-4 w-50" do %>
     <div class="input-group">
@@ -38,8 +35,6 @@
     </div>
   <% end %>
 </div>
-
-
 
 <% if @projects.any? %>
   <div class="container">

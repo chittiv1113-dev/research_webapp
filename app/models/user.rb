@@ -41,7 +41,9 @@ class User < ApplicationRecord
       "sudhanvarajesh@tamu.edu",
       "samraatg@tamu.edu",
       "stephanie.vilas@exchange.tamu.edu",
-      "stephanie.vilas@tamu.edu"
+      "stephanie.vilas@tamu.edu",
+      "maung@tamu.edu"
+      
     ]
     admin_emails.include?(email.downcase) # Case-insensitive email check
   end
