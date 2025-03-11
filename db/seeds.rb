@@ -327,9 +327,9 @@ project_list.each do |data|
   end
 
 
-  # Ensure this user has a Faculty record.
-  # If your logic is that every user with
-  # these emails should be faculty, do so:
+# Ensure this user has a Faculty record.
+# If your logic is that every user with
+# these emails should be faculty, do so:
 faculty = Faculty.find_or_create_by!(user: user) do |f|
   f.department = "CSCE"  # Set default department
 end
@@ -350,5 +350,3 @@ project = Project.create!(
 end
 
 puts "Seeded #{project_list.size} projects successfully!"
-
-
