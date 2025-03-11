@@ -17,6 +17,11 @@ class ProjectsController < ApplicationController
                                    OR projects.prefered_class ILIKE :term
                                    OR users.name ILIKE :term",
                                   term: search_term)
+      flash.now[:info] = "Showing search results for: '#{params[:search]}'"
+    else
+      @projects = Project.all
+      flash.now[:info] = "Showing all research projects" if request.format.html?
+
     end
   end
 
