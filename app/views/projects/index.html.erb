@@ -68,7 +68,8 @@
 
 <% if @projects.any? %>
   <div class="container">
-    <% @projects.each do |project| %>
+    <% active_projects = @projects.select { |project| project.expires_at.nil? || project.expires_at > Time.current } %>
+    <% active_projects.each do |project| %>
       <div class="row justify-content-center mb-4">
         <div class="col-12">
           <div class="card shadow-sm p-4">
