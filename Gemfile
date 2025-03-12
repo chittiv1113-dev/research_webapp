@@ -78,3 +78,7 @@ group :test do
   gem "webdrivers"
   gem "simplecov", require: false
 end
+
+# For running cron jobs (auto project deletion, etc.)
+gem 'sidekiq'
+gem 'sidekiq-cron'

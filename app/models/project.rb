@@ -12,4 +12,8 @@ class Project < ApplicationRecord
   validates :start_semester, presence: true, length: { maximum: 50 } # Start Semester: Required, max 50 chars
   validates :prefered_class, length: { maximum: 255 }, allow_blank: true # Preferred Class: Optional, max 255 chars
   validates :other_comments, length: { maximum: 1000 }, allow_blank: true # Other Comments: Optional, max 1000 chars (adjust as needed)  # Add other validations as needed (e.g., length, numericality)
+  validates :expires_at, presence: true # TODO: Maybe check against dates in the past and consistency among dates (e.g. created_at < expires_at)
+
+  # Allows us to write Project.expired to list all expired projects
+  scope :expired, -> { where("expires_at < ?", Date.today) }
 end
