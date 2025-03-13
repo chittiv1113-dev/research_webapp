@@ -1,6 +1,9 @@
 # app/controllers/projects_controller.rb
 class ProjectsController < ApplicationController
+  before_action :set_project, only: [:show, :edit, :update, :destroy] # Find project for show, edit, update, and destroy
   before_action :authorize_faculty_admin, only: [ :new, :create ]
+  before_action :authorize_project_owner, only: [:edit, :update, :destroy] # Authorization!
+
   def index
     @projects = Project.all
 
@@ -54,7 +57,36 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def show
+  # @project is already loaded by set_project
+  end
+
+  def edit
+    # @project is already loaded by set_project
+  end
+
+  def update
+    # @project is already loaded by set_project
+    if @project.update(project_params)
+      redirect_to @project, notice: 'Project was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    # @project is already loaded by set_project
+    @project.destroy
+    redirect_to projects_path, notice: 'Project was successfully deleted.', status: :see_other # Use :see_other for redirect after delete
+  end
+
   private
+
+  def set_project
+    @project = Project.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to projects_path, alert: "Project not found."
+  end
 
   def project_params
     params.require(:project).permit(
@@ -66,6 +98,12 @@ class ProjectsController < ApplicationController
   def authorize_faculty_admin
     unless current_user_is_faculty_or_admin?
       redirect_to root_path, alert: "You are not authorized to create projects."
+    end
+  end
+
+  def authorize_project_owner # <---  THIS METHOD WAS MISSING
+    unless current_user.admin? || (@project.faculties.include?(current_user.faculty))
+      redirect_to root_path, alert: "You are not authorized to edit this project."
     end
   end
 
