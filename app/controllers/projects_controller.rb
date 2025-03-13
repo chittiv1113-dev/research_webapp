@@ -34,28 +34,28 @@ class ProjectsController < ApplicationController
 
 
   # app/controllers/projects_controller.rb
-  def create
-    Rails.logger.debug "project_params: #{project_params.inspect}"
-    @project = Project.new(project_params)
+ def create
+     Rails.logger.debug "project_params: #{project_params.inspect}"
+     @project = Project.new(project_params)
 
-    if current_user.admin?
-      Rails.logger.debug "Associating Admin creator: #{current_user.admin.inspect}"
-      @project.admin_id = current_user.admin.id # <==== SET admin_id BEFORE save! - MOVED THIS LINE UP
-      Rails.logger.debug "Set project.admin_id to: #{@project.admin_id}"
-    end
-    @project.faculties << current_user.faculty if current_user.faculty
+     if current_user.admin?
+       Rails.logger.debug "Associating Admin creator: #{current_user.admin.inspect}"
+       @project.admin_id = current_user.admin.id # <==== SET admin_id BEFORE save! - MOVED THIS LINE UP
+       Rails.logger.debug "Set project.admin_id to: #{@project.admin_id}"
+     end
+     @project.faculties << current_user.faculty if current_user.faculty
 
-    if @project.save! # <==== Now save! after admin_id is set
-      Rails.logger.debug "--- Project Created ---"
-      Rails.logger.debug "Current User is Admin? #{current_user.admin?}"
-      Rails.logger.debug "Current User: #{current_user.inspect}"
-      Rails.logger.debug "Project after save! - Admin: #{@project.admin.inspect}, Admin ID: #{@project.admin_id}"
+     if @project.save! # <==== Now save! after admin_id is set
+       Rails.logger.debug "--- Project Created ---"
+       Rails.logger.debug "Current User is Admin? #{current_user.admin?}"
+       Rails.logger.debug "Current User: #{current_user.inspect}"
+       Rails.logger.debug "Project after save! - Admin: #{@project.admin.inspect}, Admin ID: #{@project.admin_id}"
 
-      redirect_to projects_path, notice: "Project was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+       redirect_to @project, notice: "Project was successfully created." # Redirect to show action
+     else
+       render :new, status: :unprocessable_entity
+     end
+   end
 
   def show
   # @project is already loaded by set_project

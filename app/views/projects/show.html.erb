@@ -1,16 +1,28 @@
 <%# app/views/projects/show.html.erb %>
-<h1><%= @project.title %></h1>
+<% if flash[:notice] %>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+<% end %>
+
+<h1 class="project-title"><%= @project.title %></h1>
 
 <p><strong>Description:</strong>
-  <%= @project.description %></p>
+  <span class="project-description"><%= @project.description %></span></p>
 <p><strong>Number of Positions:</strong>
-  <%= @project.num_positions %></p>
+  <span class="num_positions"><%= @project.num_positions %></span></p>
 <p><strong>Areas of Research:</strong>
-  <%= @project.areas_of_research %></p>
+  <span class=areas_of_research><%= @project.areas_of_research %></span></p>
 <p><strong>Start Semester:</strong>
-  <%= @project.start_semester %></p>
+  <span class="start_semester"><%= @project.start_semester %></span></p>
 <p><strong>Preferred Class:</strong>
-  <%= @project.prefered_class %></p>
+  <span class="prefered_class"><%= @project.prefered_class %></span></p>
 <p><strong>Other Comments:</strong>
   <%= @project.other_comments.presence || "N/A" %></p>
 

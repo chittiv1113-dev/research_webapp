@@ -2,7 +2,6 @@
 <h1>Edit Project</h1>
 
 <%= form_with(model: @project, url: project_path(@project), method: :patch) do |form| %>
-  <%# REMOVE local: true %>
   <% if @project.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@project.errors.count, "error") %>
@@ -16,38 +15,38 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :title, "Project Title" %>
+    <%= form.text_field :title, id: "project_title" %>
+    <%# ADD id: "project_title" %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, id: "project_description" %>
+    <%# Add IDs to other fields too %>
   </div>
 
   <div class="field">
     <%= form.label :num_positions, "Number of Positions" %>
-    <%= form.text_field :num_positions %>
+    <%= form.text_field :num_positions, id: "project_num_positions" %>
   </div>
 
   <div class="field">
     <%= form.label :areas_of_research %>
-    <%= form.text_area :areas_of_research %>
+    <%= form.text_area :areas_of_research, id: "project_areas_of_research" %>
   </div>
 
   <div class="field">
     <%= form.label :start_semester %>
-    <%= form.text_field :start_semester %>
+    <%= form.text_field :start_semester, id: "project_start_semester" %>
   </div>
-
   <div class="field">
     <%= form.label :prefered_class, "Preferred Class (Optional)" %>
-    <%= form.text_field :prefered_class %>
+    <%= form.text_field :prefered_class, id: "project_prefered_class" %>
   </div>
-
   <div class="field">
     <%= form.label :other_comments, "Other Comments (Optional)" %>
-    <%= form.text_area :other_comments %>
+    <%= form.text_area :other_comments, id: "project_other_comments" %>
   </div>
 
   <div class="actions">

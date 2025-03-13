@@ -35,6 +35,8 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
     expect(page).to have_current_path(root_path) # Expect redirect to root after login
   end
 
+  # spec/integration/project_creation_spec.rb
+  # spec/integration/project_creation_spec.rb
   scenario "Faculty user can create a new research project with valid input" do
     visit new_project_path
 
@@ -48,10 +50,10 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
 
     click_button "Create Project"
 
-    expect(page).to have_content("Project was successfully created.")
-    # NOTE: Research project page does not display title, so we check for the description instead
-    expect(page).to have_content("This is a system test project description.") # Check for system test description
-    # Add more expectations as needed to verify project details are displayed
+    # Check for the flash message *and* the project content on the show page
+    expect(page).to have_selector(".alert.alert-info", text: "Project was successfully created.")
+    expect(page).to have_selector(".project-description", text: "This is a system test project description.") # VERY specific
+    expect(page).to have_selector("h1", text: "Innovative Research Project System Test") # You might still be able to keep this, title should only appear once.
   end
 
   scenario "Faculty user cannot create a project with invalid input" do
@@ -67,6 +69,7 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
     expect(page).to have_content("Start semester can't be blank")
   end
 
+  # spec/integration/project_creation_spec.rb
   scenario "Faculty user can find a project by searching for its details" do
     project = Project.create!(
       title: "Project to Find",
@@ -80,10 +83,10 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
 
     visit projects_path
 
-    fill_in "Search", with: "Some topic" # Searching by area of research
+    fill_in "search", with: "Some topic" # Use the ID, and lowercase 'search'
     click_button "Search"
 
-    expect(page).to have_content("This project will be searched for.")
+    expect(page).to have_selector(".col-md-6 .project-description", text: "This project will be searched for.")
   end
 
   # You can add more scenarios, e.g., testing validation limits, etc.

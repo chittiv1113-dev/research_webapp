@@ -1,3 +1,27 @@
+<% if flash[:notice] %>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <%= flash[:alert] %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+<% end %>
+
 <h1 class="text-center">Research Opportunities</h1>
 <!-- ======================================= --> <!-- Navbar Section --> <!--
 ======================================= -->
@@ -32,7 +56,9 @@
       <%= text_field_tag :search,
       params[:search],
       class: "form-control",
-      placeholder: "Search Projects..." %>
+      placeholder: "Search Projects...",
+      id: "search" %>
+      <%# id="search" %>
       <button type="submit" class="btn btn-primary">Search</button>
       <%= link_to "Reset", projects_path, class: "btn btn-secondary" %>
     </div>
@@ -62,7 +88,7 @@
               <!-- Right Column -->
               <div class="col-md-6">
                 <p><strong>Description:</strong>
-                  <%= project.description %></p>
+                  <span class="project-description"><%= project.description %></span></p>
                 <% if project.faculties.any? %>
                   <p>
                     <strong>Faculty:</strong>
