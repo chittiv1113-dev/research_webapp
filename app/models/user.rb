@@ -29,6 +29,8 @@ class User < ApplicationRecord
         elsif User.is_student_email?(user.email)
           user.create_student!(major: "Undecided", year: 0) unless user.student? # Create Student role if email matches student domain
         end
+      else
+        user.update(uid: uid, provider: provider) if user.uid.blank? || user.provider.blank?
     end
     user
   end

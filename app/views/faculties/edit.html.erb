@@ -1,0 +1,35 @@
+<h1>Edit Faculty</h1>
+
+<%= form_with(model: @faculty, local: true) do |f| %>
+  <% if @faculty.errors.any? %>
+    <div style="color: red;">
+      <h2>
+        <%= pluralize(@faculty.errors.count, "error") %> prohibited this faculty from being saved:
+      </h2>
+      <ul>
+        <% @faculty.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :department %><br>
+    <%= f.text_field :department %>
+  </div>
+
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.submit "Update Faculty" %>
+  </div>
+<% end %>

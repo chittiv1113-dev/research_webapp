@@ -1,0 +1,32 @@
+<h1>Faculty List</h1>
+
+<%= link_to "New Faculty", new_faculty_path, class: "btn btn-success" %>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Department</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @faculties.any? %>
+      <% @faculties.each do |faculty| %>
+        <tr>
+          <td><%= faculty.user.name %></td>
+          <td><%= faculty.user.email %></td>
+          <td><%= faculty.department %></td>
+          <td>
+            <%= link_to "Edit", edit_faculty_path(faculty), class: "btn btn-primary" %>
+            <%= button_to "Delete", faculty_path(faculty), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="4" style="text-align: center;">No faculty members available.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
