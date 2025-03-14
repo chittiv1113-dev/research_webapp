@@ -33,7 +33,7 @@ RSpec.describe "Project Editing", type: :system do
       num_positions: "1",
       areas_of_research: 'Original Area',
       start_semester: 'Original Semester',
-      faculties: [@faculty]
+      faculties: [ @faculty ]
     )
 
     # Log in the faculty user
@@ -204,7 +204,6 @@ RSpec.describe "Project Editing", type: :system do
         click_link "Sign Out"
         visit edit_project_path(@project)
         expect(page).to have_current_path(new_user_session_path)
-
     end
     scenario "Non-logged in user cannot access update action" do
         click_link "Sign Out"

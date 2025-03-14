@@ -1,8 +1,8 @@
 # app/controllers/projects_controller.rb
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy] # Find project for show, edit, update, and destroy
+  before_action :set_project, only: [ :show, :edit, :update, :destroy ] # Find project for show, edit, update, and destroy
   before_action :authorize_faculty_admin, only: [ :new, :create ]
-  before_action :authorize_project_owner, only: [:edit, :update, :destroy] # Authorization!
+  before_action :authorize_project_owner, only: [ :edit, :update, :destroy ] # Authorization!
 
   def index
     @projects = Project.all
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
   end
 
 
-  # app/controllers/projects_controller.rb
+ # app/controllers/projects_controller.rb
  def create
      Rails.logger.debug "project_params: #{project_params.inspect}"
      @project = Project.new(project_params)
@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
    end
 
   def show
-  # @project is already loaded by set_project
+    # @project is already loaded by set_project
   end
 
   def edit
@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
   def update
     # @project is already loaded by set_project
     if @project.update(project_params)
-      redirect_to @project, notice: 'Project was successfully updated.'
+      redirect_to @project, notice: "Project was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -77,7 +77,7 @@ class ProjectsController < ApplicationController
   def destroy
     # @project is already loaded by set_project
     @project.destroy
-    redirect_to projects_path, notice: 'Project was successfully deleted.', status: :see_other # Use :see_other for redirect after delete
+    redirect_to projects_path, notice: "Project was successfully deleted.", status: :see_other # Use :see_other for redirect after delete
   end
 
   private
