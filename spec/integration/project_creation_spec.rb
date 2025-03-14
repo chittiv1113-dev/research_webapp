@@ -40,20 +40,20 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
   scenario "Faculty user can create a new research project with valid input" do
     visit new_project_path
 
-    fill_in "Project Title", with: "Innovative Research Project System Test"
-    fill_in "Description", with: "This is a system test project description."
-    fill_in "Number of Positions", with: "2"
-    fill_in "Areas of Research", with: "System Testing, Integration"
-    fill_in "Start Semester", with: "Fall 2025"
-    fill_in "Preferred Class (Optional)", with: "Graduate"
-    fill_in "Other Comments (Optional)", with: "System test project comments"
+    fill_in "project_title", with: "Innovative Research Project System Test" # Use ID
+    fill_in "project_description", with: "This is a system test project description." # Use ID
+    fill_in "project_num_positions", with: "2" # Use ID
+    fill_in "project_areas_of_research", with: "System Testing, Integration" # Use ID
+    fill_in "project_start_semester", with: "Fall 2025" # Use ID
+    fill_in "project_prefered_class", with: "Graduate" # Use ID
+    fill_in "project_other_comments", with: "System test project comments" # Use ID
 
     click_button "Create Project"
 
     # Check for the flash message *and* the project content on the show page
     expect(page).to have_selector(".alert.alert-info", text: "Project was successfully created.")
-    expect(page).to have_selector(".project-description", text: "This is a system test project description.") # VERY specific
-    expect(page).to have_selector("h1", text: "Innovative Research Project System Test") # You might still be able to keep this, title should only appear once.
+    expect(page).to have_selector("h1.project-title", text: "Innovative Research Project System Test")
+    expect(page).to have_selector(".project-description", text: "This is a system test project description.")
   end
 
   scenario "Faculty user cannot create a project with invalid input" do

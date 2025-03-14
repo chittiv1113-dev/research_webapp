@@ -57,14 +57,14 @@ RSpec.describe "Project Editing", type: :system do
     fill_in "project_areas_of_research", with: "Updated Area" # Use the correct ID!
     fill_in "project_start_semester", with: "Updated Semester"
     click_button "Update Project"
-    expect(page).to have_current_path(project_path(@project)) # Redirected to show page
+    expect(page).to have_current_path(project_path(@project))
     expect(page).to have_selector(".alert-info", text: "Project was successfully updated.")
-    expect(page).to have_selector(".project-title", text: "Updated Project Title")
+    expect(page).to have_selector("h1.project-title", text: "Updated Project Title")
     expect(page).to have_selector(".project-description", text: "Updated Description")
-    expect(page).to have_selector(".num_positions", text: "2")
-    # expect(page).to have_content("Updated Area")
-    # expect(page).to have_content("Updated Semester")
-    expect(page).not_to have_selector(".project-title", text: "Original Project Title") # Make sure old title is gone
+    expect(page).to have_selector("p", text: /Number of Positions:.*2/) # Check the <p> tag
+    expect(page).to have_selector("p", text: /Updated Area/)
+    expect(page).to have_selector("p", text: "Start Semester: Updated Semester")
+    expect(page).not_to have_selector("h1.project-title", text: "Original Project Title")
   end
 
   scenario "Faculty user can delete their project" do
