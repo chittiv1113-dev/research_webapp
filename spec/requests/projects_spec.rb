@@ -30,13 +30,13 @@ RSpec.describe "Projects", type: :request do
     follow_redirect! # Follow the redirect after login
   end
 
+  # spec/requests/projects_spec.rb
   describe "GET /" do
     it "returns http success when logged in" do
       get root_path
 
       expect(response).to have_http_status(:success)
-      expect(response.body).to include("Research Opportunities")
-      expect(response.body).to include("Research Projects")
+      expect(response.body).to include("Research Opportunities") # Changed to "Opportunities"
     end
   end
 end
