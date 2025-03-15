@@ -1,32 +1,42 @@
-<h1>Faculty List</h1>
+<!-- app/views/faculties/index.html.erb -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Faculty List</h1>
 
-<%= link_to "New Faculty", new_faculty_path, class: "btn btn-success" %>
+  <div class="d-flex justify-content-end mb-3">
+    <%= link_to "New Faculty", new_faculty_path, class: "btn btn-success" %>
+  </div>
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Department</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @faculties.any? %>
-      <% @faculties.each do |faculty| %>
+  <table class="table table-bordered table-striped text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @faculties.any? %>
+        <% @faculties.each do |faculty| %>
+          <tr>
+            <td><%= faculty.user.name.presence || "N/A" %></td>
+            <td><%= faculty.user.email %></td>
+            <td><%= faculty.department.presence || "N/A" %></td>
+            <td>
+              <%= link_to "Edit", edit_faculty_path(faculty), class: "btn btn-primary me-2" %>
+              <%= button_to "Delete",
+                            faculty_path(faculty),
+                            method: :delete,
+                            data: { confirm: "Are you sure?" },
+                            class: "btn btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
         <tr>
-          <td><%= faculty.user.name %></td>
-          <td><%= faculty.user.email %></td>
-          <td><%= faculty.department %></td>
-          <td>
-            <%= link_to "Edit", edit_faculty_path(faculty), class: "btn btn-primary" %>
-            <%= button_to "Delete", faculty_path(faculty), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
-          </td>
+          <td colspan="4">No faculty members available.</td>
         </tr>
       <% end %>
-    <% else %>
-      <tr>
-        <td colspan="4" style="text-align: center;">No faculty members available.</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

@@ -9,7 +9,12 @@
       <% if current_user.admin? || current_user.faculty? %>
         <%= link_to "Create New Project", new_project_path, class: "btn btn-success me-2" %>
       <% end %>
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-warning me-2" %>
     </div>
+
+
+    
+
     
     <div>
       <%= link_to "Sign Out", destroy_user_session_path, class: "btn btn-danger" %>
