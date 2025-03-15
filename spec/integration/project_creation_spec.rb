@@ -35,23 +35,25 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
     expect(page).to have_current_path(root_path) # Expect redirect to root after login
   end
 
+  # spec/integration/project_creation_spec.rb
+  # spec/integration/project_creation_spec.rb
   scenario "Faculty user can create a new research project with valid input" do
     visit new_project_path
 
-    fill_in "Project Title", with: "Innovative Research Project System Test"
-    fill_in "Description", with: "This is a system test project description."
-    fill_in "Number of Positions", with: "2"
-    fill_in "Areas of Research", with: "System Testing, Integration"
-    fill_in "Start Semester", with: "Fall 2025"
-    fill_in "Preferred Class (Optional)", with: "Graduate"
-    fill_in "Other Comments (Optional)", with: "System test project comments"
+    fill_in "project_title", with: "Innovative Research Project System Test" # Use ID
+    fill_in "project_description", with: "This is a system test project description." # Use ID
+    fill_in "project_num_positions", with: "2" # Use ID
+    fill_in "project_areas_of_research", with: "System Testing, Integration" # Use ID
+    fill_in "project_start_semester", with: "Fall 2025" # Use ID
+    fill_in "project_prefered_class", with: "Graduate" # Use ID
+    fill_in "project_other_comments", with: "System test project comments" # Use ID
 
     click_button "Create Project"
 
-    expect(page).to have_content("Project was successfully created.")
-    # NOTE: Research project page does not display title, so we check for the description instead
-    expect(page).to have_content("This is a system test project description.") # Check for system test description
-    # Add more expectations as needed to verify project details are displayed
+    # Check for the flash message *and* the project content on the show page
+    expect(page).to have_selector(".alert.alert-info", text: "Project was successfully created.")
+    expect(page).to have_selector("h1.project-title", text: "Innovative Research Project System Test")
+    expect(page).to have_selector(".project-description", text: "This is a system test project description.")
   end
 
   scenario "Faculty user cannot create a project with invalid input" do
@@ -67,6 +69,7 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
     expect(page).to have_content("Start semester can't be blank")
   end
 
+  # spec/integration/project_creation_spec.rb
   scenario "Faculty user can find a project by searching for its details" do
     project = Project.create!(
       title: "Project to Find",
@@ -80,10 +83,10 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
 
     visit projects_path
 
-    fill_in "Search", with: "Some topic" # Searching by area of research
+    fill_in "search", with: "Some topic" # Use the ID, and lowercase 'search'
     click_button "Search"
 
-    expect(page).to have_content("This project will be searched for.")
+    expect(page).to have_selector(".col-md-6 .project-description", text: "This project will be searched for.")
   end
 
   # You can add more scenarios, e.g., testing validation limits, etc.

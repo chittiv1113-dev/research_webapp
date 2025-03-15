@@ -1,8 +1,30 @@
-<h1 class="text-center">Research Opportunities</h1>
+<% if flash[:notice] %>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+<% end %>
 
-<!-- ======================================= -->
-<!-- Navbar Section -->
-<!-- ======================================= -->
+<% if flash[:alert] %>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <%= flash[:alert] %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+<% end %>
+
+<h1 class="text-center">Research Opportunities</h1>
+<!-- ======================================= --> <!-- Navbar Section --> <!--
+======================================= -->
 <div class="d-flex justify-content-between align-items-center mb-4">
   <% if user_signed_in? %>
     <div>
@@ -10,7 +32,7 @@
         <%= link_to "Create New Project", new_project_path, class: "btn btn-success me-2" %>
       <% end %>
     </div>
-    
+
     <div>
       <%= link_to "Sign Out", destroy_user_session_path, class: "btn btn-danger" %>
     </div>
@@ -18,10 +40,12 @@
     <div class="mx-auto">
       <p>Please sign in to view details and apply:</p>
       <%= button_to "Sign in with Google",
-                    user_google_oauth2_omniauth_authorize_path,
-                    method: :post,
-                    class: "btn btn-primary",
-                    data: { turbo: false } %>
+      user_google_oauth2_omniauth_authorize_path,
+      method: :post,
+      class: "btn btn-primary",
+      data: {
+        turbo: false,
+      } %>
     </div>
   <% end %>
 </div>
@@ -29,7 +53,12 @@
 <div class="d-flex justify-content-center">
   <%= form_with url: projects_path, method: :get, local: true, class: "mb-4 w-50" do %>
     <div class="input-group">
-      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search Projects..." %>
+      <%= text_field_tag :search,
+      params[:search],
+      class: "form-control",
+      placeholder: "Search Projects...",
+      id: "search" %>
+      <%# id="search" %>
       <button type="submit" class="btn btn-primary">Search</button>
       <%= link_to "Reset", projects_path, class: "btn btn-secondary" %>
     </div>
@@ -43,39 +72,50 @@
         <div class="col-12">
           <div class="card shadow-sm p-4">
             <h3 class="card-title"><%= project.title %></h3>
-            
+
             <div class="row">
               <!-- Left Column -->
               <div class="col-md-6">
-                <p><strong>Research Area:</strong> <%= project.areas_of_research %></p>
-                <p><strong>Start Semester:</strong> <%= project.start_semester %></p>
-                <p><strong>Preferred Class:</strong> <%= project.prefered_class %></p>
-                <p><strong>Number of Positions:</strong> <%= project.num_positions %></p>
+                <p><strong>Research Area:</strong>
+                  <%= project.areas_of_research %></p>
+                <p><strong>Start Semester:</strong>
+                  <%= project.start_semester %></p>
+                <p><strong>Preferred Class:</strong>
+                  <%= project.prefered_class %></p>
+                <p><strong>Number of Positions:</strong>
+                  <%= project.num_positions %></p>
               </div>
-
               <!-- Right Column -->
               <div class="col-md-6">
-                <p><strong>Description:</strong> <%= project.description %></p>
+                <p><strong>Description:</strong>
+                  <span class="project-description"><%= project.description %></span></p>
                 <% if project.faculties.any? %>
                   <p>
-                    <strong>Faculty:</strong> <%= project.faculties.map { |f| f.user.name }.join(", ") %>
+                    <strong>Faculty:</strong>
+                    <%= project.faculties.map { |f| f.user.name }.join(", ") %>
                   </p>
-                  <p><strong>Contact:</strong> <%= project.faculties.map { |f| f.user.email }.join(", ") %></p>
+                  <p><strong>Contact:</strong>
+                    <%= project.faculties.map { |f| f.user.email }.join(", ") %></p>
                 <% end %>
 
                 <% if project.admin.present? %>
-                  <p><strong>Admin:</strong> <%= project.admin.user.name %></p>
-                  <p><strong>Contact:</strong> <%= project.admin.user.email %></p>
+                  <p><strong>Admin:</strong>
+                    <%= project.admin.user.name %></p>
+                  <p><strong>Contact:</strong>
+                    <%= project.admin.user.email %></p>
                 <% end %>
               </div>
             </div>
 
-            <p><strong>Other Comments:</strong> <%= project.other_comments.presence || "N/A" %></p>
-
+            <p><strong>Other Comments:</strong>
+              <%= project.other_comments.presence || "N/A" %></p>
             <!-- Apply Button -->
             <div class="text-end">
               <%= button_to "Apply Now", "#", class: "btn btn-primary" %>
             </div>
+            <% if current_user && (current_user.admin? || project.faculties.include?(current_user.faculty)) %>
+              <%= link_to "Edit", edit_project_path(project), class: "btn btn-sm btn-warning" %>
+            <% end %>
           </div>
         </div>
       </div>
