@@ -5,5 +5,5 @@ class Faculty < ApplicationRecord
   attr_accessor :name
   attr_accessor :email
 
-  #validates :department, presence: true, length: { maximum: 255 } # Presence and max length for department
+  # validates :department, presence: true, length: { maximum: 255 } # Presence and max length for department
 end
