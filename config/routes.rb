@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get "users/sign_in", to: "users/sessions#new", as: :new_user_session
     get "users/sign_out", to: "users/sessions#destroy", as: :destroy_user_session
   end
-  
+
   resources :projects, only: [ :index, :new, :create, :edit, :update, :destroy, :show ] # Add edit, update, and destroy
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
