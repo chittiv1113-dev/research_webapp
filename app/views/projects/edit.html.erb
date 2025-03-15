@@ -1,15 +1,15 @@
 <%# app/views/projects/edit.html.erb %>
 <div class="container mt-5">
-  <%# Add a container for responsive centering %>
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <%# Adjust column width as needed %>
       <div class="card">
         <div class="card-header">
           <h1 class="text-center">Edit Project</h1>
         </div>
         <div class="card-body">
-          <%= form_with(model: @project, url: project_path(@project), method: :patch) do |form| %>
+          <%= form_with(model: @project, url: project_path(@project), method: :patch, local: true) do |form| %>
+            <%# Add local: true %>
+
             <% if @project.errors.any? %>
               <div id="error_explanation" class="alert alert-danger">
                 <h2 class="mb-3"><%= pluralize(@project.errors.count, "error") %>
@@ -23,11 +23,13 @@
             <% end %>
 
             <div class="mb-3">
-              <%# Use mb-3 for margin-bottom on each form group %>
               <%= form.label :title, "Project Title", class: "form-label" %>
-              <%# Add form-label class %>
-              <%= form.text_field :title, id: "project_title", class: "form-control" %>
-              <%# Add form-control class %>
+              <%= form.text_field :title,
+                              id: "project_title",
+                              class: "form-control",
+                              required: true,
+                              maxlength: 255 %>
+              <%# Required and maxlength %>
             </div>
 
             <div class="mb-3">
@@ -35,15 +37,20 @@
               <%= form.text_area :description,
                              id: "project_description",
                              class: "form-control",
-                             rows: 4 %>
-              <%# Add rows for textarea %>
+                             rows: 4,
+                             required: true,
+                             maxlength: 1000 %>
+              <%# Required and maxlength %>
             </div>
 
             <div class="mb-3">
               <%= form.label :num_positions, "Number of Positions", class: "form-label" %>
               <%= form.text_field :num_positions,
                               id: "project_num_positions",
-                              class: "form-control" %>
+                              class: "form-control",
+                              required: true,
+                              maxlength: 10 %>
+              <%# Required and maxlength %>
             </div>
 
             <div class="mb-3">
@@ -51,21 +58,29 @@
               <%= form.text_area :areas_of_research,
                              id: "project_areas_of_research",
                              class: "form-control",
-                             rows: 4 %>
+                             rows: 4,
+                             required: true,
+                             maxlength: 500 %>
+              <%# Required and maxlength %>
             </div>
 
             <div class="mb-3">
               <%= form.label :start_semester, class: "form-label" %>
               <%= form.text_field :start_semester,
                               id: "project_start_semester",
-                              class: "form-control" %>
+                              class: "form-control",
+                              required: true,
+                              maxlength: 50 %>
+              <%# Required and maxlength %>
             </div>
 
             <div class="mb-3">
               <%= form.label :prefered_class, "Preferred Class (Optional)", class: "form-label" %>
               <%= form.text_field :prefered_class,
                               id: "project_prefered_class",
-                              class: "form-control" %>
+                              class: "form-control",
+                              maxlength: 255 %>
+              <%# maxlength %>
             </div>
 
             <div class="mb-3">
@@ -73,20 +88,18 @@
               <%= form.text_area :other_comments,
                              id: "project_other_comments",
                              class: "form-control",
-                             rows: 4 %>
+                             rows: 4,
+                             maxlength: 1000 %>
+              <%# maxlength %>
             </div>
 
             <div class="d-grid gap-2">
-              <%# Use d-grid for button layout %>
               <%= form.submit "Update Project", class: "btn btn-primary" %>
-              <%# Add btn and btn-primary classes %>
             </div>
           <% end %>
 
           <div class="mt-3 text-center">
-            <%# Add margin-top and center the links %>
             <%= link_to "Back to Project", @project, class: "btn btn-secondary me-2" %>
-            <%# Add btn and btn-secondary classes %>
             <%= link_to "Back to Projects List", projects_path, class: "btn btn-secondary" %>
           </div>
         </div>
@@ -94,3 +107,23 @@
     </div>
   </div>
 </div>
+<script>
+    // Prevent form submission if invalid
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
