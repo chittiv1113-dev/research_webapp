@@ -80,13 +80,15 @@ RSpec.describe "Project Creations", type: :system do # Changed to RSpec.describe
       prefered_class: "Children",
       other_comments: "Children",
     )
-
+    project.faculties << @faculty_user.faculty # Add this line!
     visit projects_path
 
     fill_in "search", with: "Some topic" # Use the ID, and lowercase 'search'
     click_button "Search"
 
-    expect(page).to have_selector(".col-md-6 .project-description", text: "This project will be searched for.")
+    save_and_open_page # Add this!
+
+    expect(page).to have_selector("span.project-description", text: "This project will be searched for.")
   end
 
   # You can add more scenarios, e.g., testing validation limits, etc.
