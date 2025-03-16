@@ -28,8 +28,8 @@ RSpec.describe ProjectNotificationMailer, type: :mailer do
 
     it "renders the headers correctly" do
       expect(mail.subject).to eq("New Research Project Available")
-      expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq([ENV['ZOHO_SMTP_USERNAME']])
+      expect(mail.to).to eq([ user.email ])
+      expect(mail.from).to eq([ ENV['ZOHO_SMTP_USERNAME'] ])
     end
 
     it "renders the body correctly" do
@@ -46,14 +46,14 @@ RSpec.describe ProjectNotificationMailer, type: :mailer do
       # Check for plain text part (using regular expressions)
       expect(mail.text_part.body.to_s).to match(/New Research Project:\s*Test Project/) # Allow for newline
       expect(mail.text_part.body.to_s).to match(/Hello\s+Test Student/)
-      expect(mail.text_part.body.to_s).to match(/This is a test project description\./)  #Allow for punctuation
+      expect(mail.text_part.body.to_s).to match(/This is a test project description\./)  # Allow for punctuation
       expect(mail.text_part.body.to_s).to match(project_url(project))
       expect(mail.text_part.body.to_s).to match(/Testing,\s*Example/) # Allow for whitespace
       expect(mail.text_part.body.to_s).to match(/Fall 2024/)
       expect(mail.text_part.body.to_s).to match(/Graduate/)
       expect(mail.text_part.body.to_s).to match(/Some comments/)
     end    # Additional test: handles projects with missing optional fields
-    
+
     it "handles projects with missing optional fields" do
       project = Project.create!(
         title: "Test Project 2",

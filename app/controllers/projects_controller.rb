@@ -54,7 +54,7 @@ class ProjectsController < ApplicationController
       User.joins(:student).each do |user|  # Efficiently get only users with a student record
         ProjectNotificationMailer.new_project_email(user, @project).deliver_now
       end
-      # --- End email notifications ---
+       # --- End email notifications ---
 
        redirect_to @project, notice: "Project was successfully created." # Redirect to show action
      else
