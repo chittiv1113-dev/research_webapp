@@ -16,7 +16,7 @@ class FacultiesController < ApplicationController
     dept  = faculty_params[:department]
     name  = faculty_params[:name]
     email = faculty_params[:email].downcase
-  
+
     user = User.find_by(email: email)
     if user
       # If user already has faculty, block
@@ -38,19 +38,19 @@ class FacultiesController < ApplicationController
         uid:      SecureRandom.uuid
       )
     end
-  
+
     ActiveRecord::Base.transaction do
       user.save!
       @faculty = Faculty.create!(user: user, department: dept)
     end
-  
+
     redirect_to faculties_path, notice: "Faculty was successfully created."
   rescue ActiveRecord::RecordInvalid => e
     @faculty = Faculty.new(department: dept)
     @faculty.errors.add(:base, e.message) if @faculty.errors.empty?
     render :new, status: :unprocessable_entity
   end
-  
+
 
   def edit
     # If you want to pre-fill name, do so from @faculty.user

@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
       name  = student_params[:name]
       year  = student_params[:year]
       major = student_params[:major]
-    
+
       user = User.find_by(email: email)
       if user
         if user.student
@@ -35,19 +35,19 @@ class StudentsController < ApplicationController
           uid:      SecureRandom.uuid
         )
       end
-    
+
       ActiveRecord::Base.transaction do
         user.save!
         @student = Student.create!(user: user, year: year, major: major)
       end
-    
+
       redirect_to students_path, notice: "Student was successfully created."
     rescue ActiveRecord::RecordInvalid => e
       @student = Student.new(year: year, major: major)
       @student.errors.add(:base, e.message) if @student.errors.empty?
       render :new, status: :unprocessable_entity
     end
-    
+
     def edit
       # Pre-fill form fields from the existing record
       # We'll do that in the view (for year, major).
