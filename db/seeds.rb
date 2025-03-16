@@ -350,5 +350,3 @@ project = Project.create!(
 end
 
 puts "Seeded #{project_list.size} projects successfully!"
-
-
