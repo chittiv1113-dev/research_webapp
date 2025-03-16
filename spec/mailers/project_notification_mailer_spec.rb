@@ -34,26 +34,26 @@ RSpec.describe ProjectNotificationMailer, type: :mailer do
 
     it "renders the body correctly" do
       # Check for HTML part
-      expect(mail.html_part.body.to_s).to match(/<h1>\s*New Research Project:\s*Test Project\s*<\/h1>/)      expect(mail.html_part.body.to_s).to match("Hello Test Student")
-      expect(mail.html_part.body.to_s).to match("This is a test project description.")
+      expect(mail.html_part.body.to_s).to match(/<h1>\s*New Research Project:\s*Test Project\s*<\/h1>/)
+      expect(mail.html_part.body.to_s).to match(/Hello\s+Test Student/)
+      expect(mail.html_part.body.to_s).to match(/This is a test project description\./) # Allow for punctuation
       expect(mail.html_part.body.to_s).to match(project_url(project))
-      expect(mail.html_part.body.to_s).to match("Testing, Example")
-      expect(mail.html_part.body.to_s).to match("Fall 2024")
-      expect(mail.html_part.body.to_s).to match("Graduate")
-      expect(mail.html_part.body.to_s).to match("Some comments")
+      expect(mail.html_part.body.to_s).to match(/Testing,\s*Example/) # Allow for whitespace
+      expect(mail.html_part.body.to_s).to match(/Fall 2024/)
+      expect(mail.html_part.body.to_s).to match(/Graduate/)
+      expect(mail.html_part.body.to_s).to match(/Some comments/)
 
-      # Check for plain text part
-      expect(mail.text_part.body.to_s).to match("New Research Project: Test Project")
-      expect(mail.text_part.body.to_s).to match("Hello Test Student")
-      expect(mail.text_part.body.to_s).to match("This is a test project description.")
+      # Check for plain text part (using regular expressions)
+      expect(mail.text_part.body.to_s).to match(/New Research Project:\s*Test Project/) # Allow for newline
+      expect(mail.text_part.body.to_s).to match(/Hello\s+Test Student/)
+      expect(mail.text_part.body.to_s).to match(/This is a test project description\./)  #Allow for punctuation
       expect(mail.text_part.body.to_s).to match(project_url(project))
-      expect(mail.text_part.body.to_s).to match("Testing, Example")
-      expect(mail.text_part.body.to_s).to match("Fall 2024")
-      expect(mail.text_part.body.to_s).to match("Graduate")
-      expect(mail.text_part.body.to_s).to match("Some comments")
-    end
-
-    # Additional test: handles projects with missing optional fields
+      expect(mail.text_part.body.to_s).to match(/Testing,\s*Example/) # Allow for whitespace
+      expect(mail.text_part.body.to_s).to match(/Fall 2024/)
+      expect(mail.text_part.body.to_s).to match(/Graduate/)
+      expect(mail.text_part.body.to_s).to match(/Some comments/)
+    end    # Additional test: handles projects with missing optional fields
+    
     it "handles projects with missing optional fields" do
       project = Project.create!(
         title: "Test Project 2",
