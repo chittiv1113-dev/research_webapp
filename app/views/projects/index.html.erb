@@ -39,7 +39,7 @@
     </div>
   <% else %>
     <div class="mx-auto">
-    <p class="project-description">Please sign in to view details and apply:</p>
+      <p class="project-description">Please sign in to view details and apply:</p>
       <%= button_to "Sign in with Google",
       user_google_oauth2_omniauth_authorize_path,
       method: :post,
@@ -77,18 +77,18 @@
             <div class="row">
               <!-- Left Column -->
               <div class="col-md-6">
-              <p class="project-description"><strong>Research Area:</strong>
+                <p class="project-description"><strong>Research Area:</strong>
                   <%= project.areas_of_research %></p>
-                  <p class="project-description"><strong>Start Semester:</strong>
+                <p class="project-description"><strong>Start Semester:</strong>
                   <%= project.start_semester %></p>
-                  <p class="project-description"><strong>Preferred Class:</strong>
+                <p class="project-description"><strong>Preferred Class:</strong>
                   <%= project.prefered_class %></p>
-                  <p class="project-description"><strong>Number of Positions:</strong>
+                <p class="project-description"><strong>Number of Positions:</strong>
                   <%= project.num_positions %></p>
               </div>
               <!-- Right Column -->
               <div class="col-md-6">
-              <p class="project-description"><strong>Description:</strong>
+                <p><strong>Description:</strong>
                   <span class="project-description"><%= project.description %></span></p>
                 <% if project.faculties.any? %>
                   <p class="project-description">
@@ -100,9 +100,9 @@
                 <% end %>
 
                 <% if project.admin.present? %>
-                <p class="project-description"><strong>Admin:</strong>
+                  <p class="project-description"><strong>Admin:</strong>
                     <%= project.admin.user.name %></p>
-                    <p class="project-description"><strong>Contact:</strong>
+                  <p class="project-description"><strong>Contact:</strong>
                     <%= project.admin.user.email %></p>
                 <% end %>
               </div>
