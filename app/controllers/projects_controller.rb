@@ -50,6 +50,11 @@ class ProjectsController < ApplicationController
        Rails.logger.debug "Current User is Admin? #{current_user.admin?}"
        Rails.logger.debug "Current User: #{current_user.inspect}"
        Rails.logger.debug "Project after save! - Admin: #{@project.admin.inspect}, Admin ID: #{@project.admin_id}"
+      # --- Send email notifications to STUDENTS only ---
+      User.joins(:student).each do |user|  # Efficiently get only users with a student record
+        ProjectNotificationMailer.new_project_email(user, @project).deliver_now
+      end
+      # --- End email notifications ---
 
        redirect_to @project, notice: "Project was successfully created." # Redirect to show action
      else
