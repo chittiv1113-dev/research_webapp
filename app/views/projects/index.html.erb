@@ -72,6 +72,12 @@
       <div class="row justify-content-center mb-4">
         <div class="col-12">
           <div class="card shadow-sm p-4">
+          <div class="text-end">
+          <% if current_user && (current_user.admin? || project.faculties.include?(current_user.faculty)) %>
+            <%= link_to "Edit", edit_project_path(project), class: "btn btn-sm btn-warning" %>
+          <% end %>
+      
+          </div>
             <h3 class="card-title"><%= project.title %></h3>
 
             <div class="row">
@@ -114,9 +120,6 @@
             <div class="text-end">
               <%= button_to "Apply Now", "#", class: "btn btn-primary" %>
             </div>
-            <% if current_user && (current_user.admin? || project.faculties.include?(current_user.faculty)) %>
-              <%= link_to "Edit", edit_project_path(project), class: "btn btn-sm btn-warning" %>
-            <% end %>
           </div>
         </div>
       </div>

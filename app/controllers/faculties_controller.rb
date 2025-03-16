@@ -13,24 +13,31 @@ class FacultiesController < ApplicationController
   end
 
   def create
-    # Get the inputs from the form (only email is mandatory)
     dept  = faculty_params[:department]
     name  = faculty_params[:name]
-    email = faculty_params[:email]
+    email = faculty_params[:email].downcase
 
-    user = User.find_by(email: email.downcase)
-    unless user
-      # Create a new user with minimal "manual" logic
+    user = User.find_by(email: email)
+    if user
+      # If user already has faculty, block
+      if user.faculty
+        # The user is *already a faculty* => error out
+        flash[:alert] = "A faculty with that email already exists."
+        redirect_to new_faculty_path and return
+      else
+        # user has no faculty, so you can still make a new one
+        # Possibly update name if you want to sync
+        user.name = name if name.present?
+      end
+    else
+      # No user => create new
       user = User.new(
-        name:     name,     # can be blank if not provided
-        email:    email,    # required
+        name:     name,
+        email:    email,
         provider: "manual",
         uid:      SecureRandom.uuid
       )
     end
-
-    # Optionally update user.name if we want to sync the name from the form each time:
-    # user.name = name if name.present?
 
     ActiveRecord::Base.transaction do
       user.save!
@@ -39,11 +46,11 @@ class FacultiesController < ApplicationController
 
     redirect_to faculties_path, notice: "Faculty was successfully created."
   rescue ActiveRecord::RecordInvalid => e
-    # If user or faculty fails validation, re-render :new with errors
     @faculty = Faculty.new(department: dept)
     @faculty.errors.add(:base, e.message) if @faculty.errors.empty?
     render :new, status: :unprocessable_entity
   end
+
 
   def edit
     # If you want to pre-fill name, do so from @faculty.user
@@ -57,7 +64,7 @@ class FacultiesController < ApplicationController
     user = @faculty.user
     # If you want to let them edit the user’s email, you can do this:
     user.email = email if email.present?
-    # user.name  = name if name.present?
+    user.name  = name if name.present?
 
     @faculty.department = dept
 
