@@ -342,7 +342,8 @@ project = Project.create!(
   areas_of_research: data[:areas_of_research],
   start_semester: data[:start_semester],
   prefered_class: data[:prefered_class],
-  other_comments: data[:other_comments]
+  other_comments: data[:other_comments],
+  expires_at: data[:expires_at],
 )
 
   # Link project <-> faculty in the join table
