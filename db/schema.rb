@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_075106) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_25_170646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,15 +53,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_075106) do
     t.text "description"
     t.integer "num_positions", null: false
     t.text "areas_of_research", null: false
-    t.string "start_semester", null: false
     t.string "prefered_class"
     t.text "other_comments"
     t.boolean "is_active", default: true
     t.datetime "filled_at"
-    t.datetime "expires_at"
     t.bigint "admin_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "start_date"
+    t.date "end_date"
     t.index ["admin_id"], name: "index_projects_on_admin_id"
   end
 

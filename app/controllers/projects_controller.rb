@@ -33,8 +33,8 @@ class ProjectsController < ApplicationController
   end
 
 
- # app/controllers/projects_controller.rb
- def create
+  # app/controllers/projects_controller.rb
+  def create
      Rails.logger.debug "project_params: #{project_params.inspect}"
      @project = Project.new(project_params)
 
@@ -96,7 +96,7 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(
       :title, :description, :num_positions, :areas_of_research,
-      :start_semester, :prefered_class, :other_comments, :admin_id
+      :start_date, :end_date, :prefered_class, :other_comments, :admin_id
     )
   end
 
