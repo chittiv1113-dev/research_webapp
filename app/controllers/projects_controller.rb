@@ -51,7 +51,6 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-
   # app/controllers/projects_controller.rb
   def create
      Rails.logger.debug "project_params: #{project_params.inspect}"
@@ -98,13 +97,54 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    # @project is already loaded by set_project
+    @project = Project.find(params[:id])
+
+    # pre-select availability field based on start and end date
+    semester_dates = {
+      "spring" => { start: Date.new(@project.start_date.year, 1, 15), end: Date.new(@project.start_date.year, 5, 15) },
+      "summer" => { start: Date.new(@project.start_date.year, 6, 1), end: Date.new(@project.start_date.year, 8, 15) },
+      "fall"   => { start: Date.new(@project.start_date.year, 9, 1), end: Date.new(@project.start_date.year, 12, 15) }
+    }
+
+    if @project.start_date && @project.end_date
+      matched_semester = semester_dates.find do |key, range|
+        @project.start_date == range[:start] && @project.end_date == range[:end]
+      end
+
+      if matched_semester
+        @selection_type = "semester"
+        @selected_semester = matched_semester.first
+      elsif @project.end_date > Date.today + 100.years
+        @selection_type = "anytime"
+      else
+        @selection_type = "date-range"
+      end
+    else
+      @selection_type = "anytime"
+    end
   end
 
   def update
     # @project is already loaded by set_project
-    if @project.update(project_params)
-      redirect_to @project, notice: "Project was successfully updated."
+    if @project.update(project_params.except(:selection_type, :start_semester, :start_year))
+      # determine start_date and end_date based on selection_type
+      case params[:project][:selection_type]
+      when "semester"
+        @project.start_date, @project.end_date = semester_dates(params[:project][:start_semester], params[:project][:start_year])
+      when "date-range"
+        @project.start_date = params[:project][:start_date]
+        @project.end_date = params[:project][:end_date]
+      when "anytime"
+        @project.start_date = Date.today
+        @project.end_date = Date.today + 1000.years
+      end
+
+      if @project.save
+        Rails.logger.debug "New start date: #{@project.reload.start_date}, end date: #{@project.reload.end_date}"
+        redirect_to @project, notice: "Project was successfully updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
     else
       render :edit, status: :unprocessable_entity
     end

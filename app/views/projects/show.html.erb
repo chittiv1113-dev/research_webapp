@@ -28,7 +28,7 @@
             <span class="areas-of-research"><%= @project.areas_of_research %></span></p>
           <p><strong>Start Date:</strong>
             <span class="start-date"><%= @project.start_date %></span></p>
-          <% if @project.end_date <= Date.today + 10.years %>
+          <% if @project.end_date <= Date.today + 100.years %>
             <p><strong>End Date:</strong>
               <span class="end-date"><%= @project.end_date %></span></p>
           <% end %>
