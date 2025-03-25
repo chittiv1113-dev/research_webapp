@@ -1,4 +1,23 @@
 # app/controllers/projects_controller.rb
+
+# Given a semester ("spring", "summer", "fall") and a year, return that semester's date range.
+def semester_dates(semester, year)
+  year = year.to_i
+  case semester
+  when "spring"
+    # Jan 1 - May 15
+    [Date.new(year, 1, 15), Date.new(year, 5, 15)]
+  when "summer"
+    # Jun 6 - Aug 15
+    [Date.new(year, 6, 1), Date.new(year, 8, 15)]
+  when "fall"
+    # Sep 1 - Dec 15
+    [Date.new(year, 9, 1), Date.new(year, 12, 15)]
+  else
+    [nil, nil]
+  end
+end
+
 class ProjectsController < ApplicationController
   before_action :set_project, only: [ :show, :edit, :update, :destroy ] # Find project for show, edit, update, and destroy
   before_action :authorize_faculty_admin, only: [ :new, :create ]
@@ -36,7 +55,19 @@ class ProjectsController < ApplicationController
   # app/controllers/projects_controller.rb
   def create
      Rails.logger.debug "project_params: #{project_params.inspect}"
-     @project = Project.new(project_params)
+     @project = Project.new(project_params.except(:selection_type, :start_semester, :start_year))
+
+     # determine start_date and end_date based on selection_type
+     case params[:project][:selection_type]
+     when "semester"
+       @project.start_date, @project.end_date = semester_dates(params[:project][:start_semester], params[:project][:start_year])
+     when "date-range"
+       @project.start_date = params[:project][:start_date]
+       @project.end_date = params[:project][:end_date]
+     when "anytime"
+       @project.start_date = Date.today
+       @project.end_date = Date.today + 1000.years
+     end
 
      if current_user.admin?
        Rails.logger.debug "Associating Admin creator: #{current_user.admin.inspect}"
