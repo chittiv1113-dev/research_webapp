@@ -31,7 +31,9 @@
       <% if current_user.admin? || current_user.faculty? %>
         <%= link_to "Create New Project", new_project_path, class: "btn btn-success me-2" %>
       <% end %>
-      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-warning me-2" %>
+      <% if current_user.admin? %>
+        <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-warning me-2" %>
+      <% end %>
     </div>
 
     <div>
@@ -72,12 +74,12 @@
       <div class="row justify-content-center mb-4">
         <div class="col-12">
           <div class="card shadow-sm p-4">
-          <div class="text-end">
-          <% if current_user && (current_user.admin? || project.faculties.include?(current_user.faculty)) %>
-            <%= link_to "Edit", edit_project_path(project), class: "btn btn-sm btn-warning" %>
-          <% end %>
-      
-          </div>
+            <div class="text-end">
+              <% if current_user && (current_user.admin? || project.faculties.include?(current_user.faculty)) %>
+                <%= link_to "Edit", edit_project_path(project), class: "btn btn-sm btn-warning" %>
+              <% end %>
+
+            </div>
             <h3 class="card-title"><%= project.title %></h3>
 
             <div class="row">
@@ -109,17 +111,20 @@
                   <p class="project-description"><strong>Admin:</strong>
                     <%= project.admin.user.name %></p>
                   <p class="project-description"><strong>Contact:</strong>
-                    <%= project.admin.user.email %></p> 
+                    <%= project.admin.user.email %></p>
                 <% end %>
               </div>
             </div>
 
             <p class="project-description"><strong>Other Comments:</strong>
               <%= project.other_comments.presence || "N/A" %></p>
-              <!-- Apply Button -->
-              <div class="text-end">
-              <%= link_to 'Apply', 'https://docs.google.com/forms/d/e/1FAIpQLSf55GqUgHqCycTpiIqW3CUDBZ34UmE2OKq1HMoUxUx76e0Nfw/viewform?usp=header', class: 'btn btn-primary', target: '_blank' %>
-              </div>
+            <!-- Apply Button -->
+            <div class="text-end">
+              <%= link_to "Apply",
+              "https://docs.google.com/forms/d/e/1FAIpQLSf55GqUgHqCycTpiIqW3CUDBZ34UmE2OKq1HMoUxUx76e0Nfw/viewform?usp=header",
+              class: "btn btn-primary",
+              target: "_blank" %>
+            </div>
           </div>
         </div>
       </div>
