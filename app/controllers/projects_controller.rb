@@ -6,15 +6,15 @@ def semester_dates(semester, year)
   case semester
   when "spring"
     # Jan 1 - May 15
-    [Date.new(year, 1, 15), Date.new(year, 5, 15)]
+    [ Date.new(year, 1, 15), Date.new(year, 5, 15) ]
   when "summer"
     # Jun 6 - Aug 15
-    [Date.new(year, 6, 1), Date.new(year, 8, 15)]
+    [ Date.new(year, 6, 1), Date.new(year, 8, 15) ]
   when "fall"
     # Sep 1 - Dec 15
-    [Date.new(year, 9, 1), Date.new(year, 12, 15)]
+    [ Date.new(year, 9, 1), Date.new(year, 12, 15) ]
   else
-    [nil, nil]
+    [ nil, nil ]
   end
 end
 
