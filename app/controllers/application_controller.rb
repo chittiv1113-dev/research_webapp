@@ -18,4 +18,11 @@ class ApplicationController < ActionController::Base
     flash[:alert] = "You are not authorized to perform this action."
     redirect_back(fallback_location: root_path)
   end
+
+  def require_admin
+      unless current_user && current_user.admin?
+        flash[:alert] = "You are not authorized to access this page."
+        redirect_to root_path # Or projects_path, or wherever you want non-admins to go
+      end
+  end
 end
