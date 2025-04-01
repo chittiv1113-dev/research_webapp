@@ -4,4 +4,6 @@ class AdminsController < ApplicationController
   end
   def dashboard
   end
+  def documentation
+  end
 end

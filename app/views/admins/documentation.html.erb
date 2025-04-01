@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Admin Dashboard Documentation</title>
+    
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+      }
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      h1 {
+        /* h1 remains left-aligned by default; remove center rule */
+        margin-top: 0;
+      }
+      h2, h3 {
+        /* h2 and h3 are left-aligned */
+        margin-top: 20px;
+      }
+      ul {
+        list-style: disc inside;
+        padding-left: 0;
+      }
+      hr {
+        margin: 30px 0;
+      }
+      p {
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+
+  <div>
+ <%= link_to "Back to Admin Dashboard", admin_dashboard_path, class: "btn btn-warning" %>
+    </div>
+
+    <div class="container">
+      <h1>Admin Dashboard </h1>
+      <p>
+        The Admin Dashboard is a centralized interface that allows authorized users (admins and faculty) to manage lists of users in three categories: 
+        <strong>Students, Faculty</strong>, and <strong>Admins</strong>. (Note: The Admin List feature will be implemented in Sprint 3.)
+      </p>
+
+      <h2>User Types Overview</h2>
+      <h3>Student</h3>
+      <p>
+        Students can view projects and apply for research opportunities. They have basic access to the website.
+      </p>
+      <h3>Faculty</h3>
+      <p>
+        Faculty members have all the features available to students. In addition, they can create research projects and notify students about new opportunities.
+      </p>
+      <h3>Admin</h3>
+      <p>
+        Admin users have all the capabilities of both faculty and students. They can manage (create, update, delete) lists of faculty, students, and other admins.
+      </p>
+
+      <h2>Admin Dashboard Navigation</h2>
+      <p>
+        The Admin Dashboard displays three main buttons:
+      </p>
+      <ul>
+        <li><strong>Manage Faculty List</strong></li>
+        <li><strong>Manage Student List</strong></li>
+        <li><strong>Back to Projects</strong></li>
+      </ul>
+      <p>
+        <strong>Back to Projects:</strong> Clicking this button returns you to the main page where you can view all research projects.
+      </p>
+
+      <h2>Manage Faculty List</h2>
+      <p>This section allows you to manage faculty records. The following actions are available:</p>
+      <h3>Viewing Faculty</h3>
+      <ul>
+        <li>Displays a list of all faculty members, including their name, email, and department.</li>
+      </ul>
+      <h3>Creating New Faculty</h3>
+      <ul>
+        <li>Click the <strong>"New Faculty"</strong> button.</li>
+        <li>Fill out the form:
+          <ul>
+            <li><strong>Email:</strong> (Required) Provide the faculty member’s email.</li>
+            <li><strong>Name:</strong> (Optional) Provide the faculty member’s name.</li>
+            <li><strong>Department:</strong> (Optional) Provide department information.</li>
+          </ul>
+        </li>
+        <li>Click <strong>"Create Faculty"</strong> to save the record.</li>
+        <li>If you change your mind, click <strong>"Back to Faculty List"</strong> to cancel.</li>
+      </ul>
+      <h3>Editing Faculty</h3>
+      <ul>
+        <li>In the faculty list, click the <strong>"Edit"</strong> button corresponding to the faculty member you want to update.</li>
+        <li>Modify the information (only email is required; name and department are optional).</li>
+        <li>Click <strong>"Update Faculty"</strong> to save the changes.</li>
+        <li>Click <strong>"Back to Faculty List"</strong> if you decide not to make any changes.</li>
+      </ul>
+      <h3>Deleting Faculty</h3>
+      <ul>
+        <li>Click the <strong>"Delete"</strong> button next to the faculty record you wish to remove and confirm the deletion.</li>
+      </ul>
+
+      <h2>Manage Student List</h2>
+      <p>This section provides similar CRUD functionality for student records.</p>
+      <h3>Viewing Students</h3>
+      <ul>
+        <li>Displays a list of all student records, showing details such as name, email, year, and major.</li>
+      </ul>
+      <h3>Creating New Student</h3>
+      <ul>
+        <li>Click the <strong>"New Student"</strong> button.</li>
+        <li>Fill out the form:
+          <ul>
+            <li><strong>Email:</strong> (Required) Provide the student's email address.</li>
+            <li><strong>Name:</strong> (Optional) Provide the student's name.</li>
+            <li><strong>Year:</strong> (Optional) Provide the student’s academic year.</li>
+            <li><strong>Major:</strong> (Optional) Provide the student's major.</li>
+          </ul>
+        </li>
+        <li>Click <strong>"Create Student"</strong> to save the record.</li>
+        <li>If you decide not to create a new student, click <strong>"Back to Student List"</strong> to cancel.</li>
+      </ul>
+      <h3>Editing Students</h3>
+      <ul>
+        <li>Click the <strong>"Edit"</strong> button next to the student record you want to update.</li>
+        <li>Modify the desired fields (only email is required; other fields are optional).</li>
+        <li>Click <strong>"Update Student"</strong> to save your changes.</li>
+        <li>Click <strong>"Back to Student List"</strong> if you wish to cancel editing.</li>
+      </ul>
+      <h3>Deleting Students</h3>
+      <ul>
+        <li>Click the <strong>"Delete"</strong> button next to the student record you wish to remove and confirm the deletion.</li>
+      </ul>
+
+      <h2>Future Feature: Admin List</h2>
+      <p>
+        The Admin List feature will be implemented in Sprint 3. This section will eventually allow you to manage admin user records similarly to the Faculty and Student lists.
+      </p>
+    </div>
+  </body>
+</html>

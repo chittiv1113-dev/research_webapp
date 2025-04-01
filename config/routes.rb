@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :faculties
   resources :students
   get "admin_dashboard" => "admins#dashboard", as: :admin_dashboard
+  get "documentation" => "admins#documentation", as: :documentation
 
   post "forms/send_form/:project_id", to: "forms#send_form", as: "send_form"
 
