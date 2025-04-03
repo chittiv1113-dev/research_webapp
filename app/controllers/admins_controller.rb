@@ -1,6 +1,6 @@
 
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:edit, :update, :destroy]
+  before_action :set_admin, only: [ :edit, :update, :destroy ]
   before_action :require_admin
 
   def dashboard
@@ -97,4 +97,3 @@ class AdminsController < ApplicationController
     params.require(:admin).permit(:email, :name)
   end
 end
-
