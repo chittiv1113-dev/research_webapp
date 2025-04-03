@@ -68,7 +68,8 @@
 
 <% if @projects.any? %>
   <div class="container">
-    <% @projects.each do |project| %>
+    <% active_projects = @projects.select { |project| project.end_date.nil? || project.end_date > Time.current } %>
+    <% active_projects.each do |project| %>
       <div class="row justify-content-center mb-4">
         <div class="col-12">
           <div class="card shadow-sm p-4">
@@ -85,8 +86,10 @@
               <div class="col-md-6">
                 <p class="project-description"><strong>Research Area:</strong>
                   <%= project.areas_of_research %></p>
-                <p class="project-description"><strong>Start Semester:</strong>
-                  <%= project.start_semester %></p>
+                <p class="project-description"><strong>Start Date:</strong>
+                  <%= project.start_date %></p>
+                <p class="project-description"><strong>End Date:</strong>
+                  <%= project.end_date %></p>
                 <p class="project-description"><strong>Preferred Class:</strong>
                   <%= project.prefered_class %></p>
                 <p class="project-description"><strong>Number of Positions:</strong>

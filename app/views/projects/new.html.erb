@@ -65,13 +65,41 @@
             </div>
 
             <div class="mb-3">
-              <%= form.label :start_semester, class: "form-label" %>
-              <%= form.text_field :start_semester,
-                              id: "project_start_semester",
-                              class: "form-control",
-                              required: true,
-                              maxlength: 50 %>
-              <%# Required and maxlength %>
+              <%= form.label :selection_type, "Availability", class: "form-label" %>
+              <div class="d-flex flex-column">
+                <div>
+                  <%= form.radio_button :selection_type, "semester", id: "semester-option", class: "selection-radio" %>
+                  <%= form.label :semester_option, "One semester", for: "semester-option" %>
+                </div>
+
+                <div>
+                  <%= form.radio_button :selection_type, "date-range", id: "date-range-option", class: "selection-radio" %>
+                  <%= form.label :date_range_option, "Date range", for: "date-range-option" %>
+                </div>
+
+                <div>
+                  <%= form.radio_button :selection_type, "anytime", id: "anytime-option", class: "selection-radio" %>
+                  <%= form.label :anytime_option, "Anytime", for: "anytime-option" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- availability: choose one semester -->
+            <div id="semester-selection" class="mb-3" style="display: none;">
+              <%= form.label :start_semester, "Select Semester:", class: "form-label" %>
+              <div>
+                <%= form.select :start_semester, [["Spring", "spring"], ["Summer", "summer"], ["Fall", "fall"]], {}, class: "semester-dropdown" %>
+                <%= form.select :start_year, (Date.today.year..(Date.today.year + 5)).to_a, {}, class: "year-dropdown" %>
+              </div>
+            </div>
+
+            <!-- availability: choose a date range -->
+            <div id="date-range-selection" class="mb-3" style="display: none;">
+              <%= form.label :start_date, "Start Date:", class: "form-label" %>
+              <%= form.date_field :start_date, class: "form-control" %>
+
+              <%= form.label :end_date, "End Date:", class: "form-label" %>
+              <%= form.date_field :end_date, class: "form-control" %>
             </div>
 
             <div class="mb-3">
@@ -123,5 +151,41 @@
         }, false);
       });
     }, false);
+
+    // handle display of availability field
+    document.addEventListener('DOMContentLoaded', function () {
+      const radios = document.querySelectorAll('.selection-radio');
+      const semesterDiv = document.getElementById('semester-selection');
+      const dateRangeDiv = document.getElementById('date-range-selection');
+
+      function toggleFields() {
+        const selectedValue = document.querySelector('.selection-radio:checked')?.value;
+
+        switch (selectedValue) {
+          case 'semester':
+            semesterDiv.style.display = 'block';
+            dateRangeDiv.style.display = 'none';
+            break;
+
+          case 'date-range':
+            semesterDiv.style.display = 'none';
+            dateRangeDiv.style.display = 'block';
+            break;
+
+          default:
+            semesterDiv.style.display = 'none';
+            dateRangeDiv.style.display = 'none';
+            break;
+        }
+      }
+
+      radios.forEach(radio => {
+        radio.addEventListener('change', toggleFields);
+      });
+
+      // initialize correct display on page load
+      toggleFields();
+    });
+
   })();
 </script>
