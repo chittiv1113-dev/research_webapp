@@ -57,15 +57,14 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config/environments/production.rb
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:              ENV['ZOHO_SMTP_SERVER'],
-    port:                 ENV['ZOHO_SMTP_PORT'].to_i,
-    domain:               ENV['ZOHO_DOMAIN'],  # Your *actual* domain (or Zoho's if @zohomail.com)
-    user_name:            ENV['ZOHO_SMTP_USERNAME'],
-    password:             ENV['ZOHO_SMTP_PASSWORD'],
-    authentication:       :login,
-    enable_starttls_auto: true,
-    ssl:                  true     # For port 465
+config.action_mailer.smtp_settings = {
+    address:              'smtp.sendgrid.net',
+    port:                 587, # Use 587 for TLS
+    domain:               ENV['SENDGRID_DOMAIN'], # Your authenticated domain
+    user_name:            'apikey', # This is literal string 'apikey'
+    password:             ENV['SENDGRID_API_KEY'], # Use the ENV var
+    authentication:       :plain,
+    enable_starttls_auto: true # Required for port 587
   }
 
   config.action_mailer.raise_delivery_errors = false # Usually false in production (handle gracefully)

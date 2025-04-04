@@ -38,16 +38,18 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   # config/environments/development.rb
   config.action_mailer.delivery_method = :smtp
+ # --- START SendGrid Configuration ---
   config.action_mailer.smtp_settings = {
-    address:              ENV['ZOHO_SMTP_SERVER'],
-    port:                 ENV['ZOHO_SMTP_PORT'].to_i,
-    domain:               ENV['ZOHO_DOMAIN'],
-    user_name:            ENV['ZOHO_SMTP_USERNAME'],
-    password:             ENV['ZOHO_SMTP_PASSWORD'],
-    authentication:       :login,  # Try :login first, then :plain if needed
-    enable_starttls_auto: true,  # Usually true for Zoho
-    ssl:                  true     # Since you're using port 465
+    address:              'smtp.sendgrid.net',
+    port:                 587, # Use 587 for TLS
+    domain:               ENV['SENDGRID_DOMAIN'], # Your authenticated domain
+    user_name:            'apikey', # This is literal string 'apikey'
+    password:             ENV['SENDGRID_API_KEY'], # Use the ENV var
+    authentication:       :plain,
+    enable_starttls_auto: true # Required for port 587
+    # Note: Do not set :ssl => true when using port 587 and enable_starttls_auto: true
   }
+  # --- END SendGrid Configuration ---
 
   config.action_mailer.raise_delivery_errors = true # VERY IMPORTANT for development
   config.action_mailer.perform_deliveries = true # set this
