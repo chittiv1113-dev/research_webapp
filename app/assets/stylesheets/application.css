@@ -33,14 +33,68 @@
     margin-bottom: 10px;
   }
   
-  /* Make sure the Apply button looks consistent */
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
+/* Make sure the Apply button looks consistent */
+
+.btn-primary {
+    background-color: #500000;
+    border-color: #3c0000;
+}
   
-  .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
-  }
-  
+.btn-primary:hover {
+    background-color: #732f2f;
+    border-color: #581919;
+}
+
+.nav-link {
+    position: relative;
+    display: block;
+    color: white;
+}
+
+.nav-link:hover {
+    color: #d6d3c4;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: transform 0.25s ease-out;
+    transform-origin: bottom center;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    background-color: #d6d3c4;
+}
+
+#header {
+    background: #500000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px;
+    font-weight: bold;
+}
+
+#header-left > img {
+    max-width: 450px;
+}
+
+#header-left > h1 {
+    color: white;
+}
+
+#header-right {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 3em;
+}
