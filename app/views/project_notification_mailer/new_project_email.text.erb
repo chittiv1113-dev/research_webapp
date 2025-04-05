@@ -10,7 +10,7 @@ Description:
 Areas of Research:
 <%= @project.areas_of_research %>
 Start Semester:
-<%= @project.start_semester %>
+<%= @project.start_date.strftime("%B %d, %Y") if @project.start_date %>
 Number of Positions:
 <%= @project.num_positions %>
 <% if @project.prefered_class.present? %>
