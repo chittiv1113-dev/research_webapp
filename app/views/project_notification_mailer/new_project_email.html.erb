@@ -24,8 +24,8 @@
       <%= @project.description %><br>
       <strong>Areas of Research:</strong>
       <%= @project.areas_of_research %><br>
-      <strong>Start Semester:</strong>
-      <%= @project.start_semester %><br>
+      <strong>Start Date:</strong>
+      <%= @project.start_date.strftime("%B %d, %Y") if @project.start_date %><br>
       <strong>Number of Positions:</strong>
       <%= @project.num_positions %><br>
       <% if @project.prefered_class.present? %>
