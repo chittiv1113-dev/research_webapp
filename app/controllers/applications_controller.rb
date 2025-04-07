@@ -1,10 +1,10 @@
 # app/controllers/applications_controller.rb
 class ApplicationsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create] # Must be logged in to apply
-  before_action :set_project, only: [:new, :create]
+  before_action :authenticate_user!, only: [ :new, :create ] # Must be logged in to apply
+  before_action :set_project, only: [ :new, :create ]
   # Optional: Add authorization check to ensure only students can apply
   # before_action :require_student, only: [:new, :create]
-  before_action :require_student_or_admin, only: [:new, :create] # <-- ADD THIS LINE
+  before_action :require_student_or_admin, only: [ :new, :create ] # <-- ADD THIS LINE
 
   # Action for the landing page (root)
   def landing
@@ -30,7 +30,7 @@ class ApplicationsController < ApplicationController
     ).to_h.with_indifferent_access # Use hash with indifferent access
 
     # 2. Basic Validation (Example: Check required fields)
-    required_fields = [:last_name, :first_name, :uin, :tamu_email, :interest_reason]
+    required_fields = [ :last_name, :first_name, :uin, :tamu_email, :interest_reason ]
     missing_fields = required_fields.select { |f| application_data[f].blank? }
 
     unless missing_fields.empty?

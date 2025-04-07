@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   # --- UPDATED: Nest applications under projects ---
   resources :projects, only: [ :index, :new, :create, :edit, :update, :destroy, :show ] do
-    resources :applications, only: [:new, :create] # Creates new_project_application_path and project_applications_path
+    resources :applications, only: [ :new, :create ] # Creates new_project_application_path and project_applications_path
   end
 
   # Admin, Faculty, Student routes (keep as is)
@@ -26,5 +26,4 @@ Rails.application.routes.draw do
 
   # --- REMOVE old form route if it exists ---
   # post "forms/send_form/:project_id", to: "forms#send_form", as: "send_form" # Remove this line
-
 end
