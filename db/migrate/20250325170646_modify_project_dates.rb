@@ -7,4 +7,3 @@ class ModifyProjectDates < ActiveRecord::Migration[8.0]
     add_column :projects, :end_date, :date
   end
 end
-
