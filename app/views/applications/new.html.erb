@@ -1,0 +1,90 @@
+<%# app/views/applications/new.html.erb %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Apply for:
+    <%= @project.title %></h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card p-4 shadow-sm">
+        <%# Use url helper for nested route: project_applications_path(@project) %>
+        <%= form_with url: project_applications_path(@project), method: :post, local: true do |form| %>
+
+          <%# Define the questions based on the raw JS array %>
+          <% questions = [
+            { name: :last_name, label: "Last Name*", type: :text_field, required: true },
+            {
+              name: :first_name,
+              label: "First Name*",
+              type: :text_field,
+              required: true,
+            },
+            { name: :uin, label: "UIN*", type: :text_field, required: true },
+            {
+              name: :tamu_email,
+              label: "Texas A&M Email*",
+              type: :email_field,
+              required: true,
+              value: (current_user&.email if current_user&.email&.include?("@tamu.edu")),
+            }, # Pre-fill if possible
+            {
+              name: :interest_reason,
+              label: "Why are you interested in this field?*",
+              type: :text_area,
+              required: true,
+              rows: 4,
+            },
+            {
+              name: :personal_projects,
+              label: "Personal Projects",
+              type: :text_area,
+              rows: 3,
+            },
+            {
+              name: :relevant_classes,
+              label: "Relevant Classes",
+              type: :text_area,
+              rows: 3,
+            },
+            {
+              name: :work_experience,
+              label: "Work Experience",
+              type: :text_area,
+              rows: 3,
+            },
+            { name: :github_link, label: "GitHub Link", type: :url_field },
+          ] %>
+
+          <% questions.each do |q| %>
+            <div class="mb-3">
+              <%= label_tag q[:name], q[:label], class: "form-label" %>
+              <% if q[:type] == :text_area %>
+                <%= text_area_tag q[:name],
+                params[q[:name]],
+                class: "form-control",
+                required: q[:required],
+                rows: q[:rows] %>
+              <% else %>
+                <%# --- Corrected Line --- %>
+                <%= public_send(
+                  "#{q[:type]}_tag", # Convert symbol to string and append _tag
+                  q[:name],
+                  params[q[:name]] || q[:value], # Get value from params (on validation failure) or default
+                  class: "form-control",
+                  required: q[:required],
+                ) %>
+                <%# --- End Correction --- %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <div class="text-center mt-4">
+            <%= link_to "Cancel", project_path(@project), class: "btn btn-secondary me-2" %>
+            <%= form.submit "Submit Application", class: "btn btn-primary" %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

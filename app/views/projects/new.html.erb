@@ -7,9 +7,11 @@
           <h1 class="text-center">Create New Research Project</h1>
         </div>
         <div class="card-body">
-          <%= form_with(model: @project, url: projects_path, method: :post, local: true) do |form| %>
-            <%# Add local: true %>
+          <%# Use 'needs-validation' class for Bootstrap validation styles %>
+          <%= form_with(model: @project, url: projects_path, method: :post, local: true, html: { class: "needs-validation", novalidate: true }) do |form| %>
+            <%# novalidate prevents default browser validation UI, letting Bootstrap handle it %>
 
+            <%# Display Server-Side Errors (if any after submission) %>
             <% if @project.errors.any? %>
               <div id="error_explanation" class="alert alert-danger">
                 <h2 class="mb-3"><%= pluralize(@project.errors.count, "error") %>
@@ -22,6 +24,7 @@
               </div>
             <% end %>
 
+            <%# Project Title %>
             <div class="mb-3">
               <%= form.label :title, "Project Title", class: "form-label" %>
               <%= form.text_field :title,
@@ -29,9 +32,10 @@
                               class: "form-control",
                               required: true,
                               maxlength: 255 %>
-              <%# Required and maxlength %>
+              <div class="invalid-feedback">Please provide a project title.</div>
             </div>
 
+            <%# Description %>
             <div class="mb-3">
               <%= form.label :description, class: "form-label" %>
               <%= form.text_area :description,
@@ -40,19 +44,23 @@
                              rows: 4,
                              required: true,
                              maxlength: 1000 %>
-              <%# Required and maxlength %>
+              <div class="invalid-feedback">Please provide a description.</div>
             </div>
 
+            <%# Number of Positions %>
             <div class="mb-3">
               <%= form.label :num_positions, "Number of Positions", class: "form-label" %>
-              <%= form.text_field :num_positions,
-                              id: "project_num_positions",
-                              class: "form-control",
-                              required: true,
-                              maxlength: 10 %>
-              <%# Required and maxlength %>
+              <%= form.number_field :num_positions,
+                                id: "project_num_positions",
+                                class: "form-control",
+                                required: true,
+                                min: 1,
+                                step: 1,
+                                placeholder: "e.g., 2" %>
+              <div class="invalid-feedback">Please enter a valid number of positions (must be 1 or more).</div>
             </div>
 
+            <%# Areas of Research %>
             <div class="mb-3">
               <%= form.label :areas_of_research, class: "form-label" %>
               <%= form.text_area :areas_of_research,
@@ -61,56 +69,99 @@
                              rows: 4,
                              required: true,
                              maxlength: 500 %>
-              <%# Required and maxlength %>
+              <div class="invalid-feedback">Please list the areas of research.</div>
             </div>
 
-            <div class="mb-3">
+            <%# Availability Selection %>
+            <div class="mb-3 position-relative">
+              <%# Added position-relative for feedback positioning %>
               <%= form.label :selection_type, "Availability", class: "form-label" %>
               <div class="d-flex flex-column">
                 <div>
-                  <%= form.radio_button :selection_type, "semester", id: "semester-option", class: "selection-radio" %>
-                  <%= form.label :semester_option, "One semester", for: "semester-option" %>
+                  <%# Add required: true to the first radio button for group validation %>
+                  <%= form.radio_button :selection_type,
+                                    "semester",
+                                    id: "semester-option",
+                                    class: "form-check-input selection-radio me-1",
+                                    required: true %>
+                  <%= form.label :semester_option,
+                             "One semester",
+                             for: "semester-option",
+                             class: "form-check-label" %>
                 </div>
-
                 <div>
-                  <%= form.radio_button :selection_type, "date-range", id: "date-range-option", class: "selection-radio" %>
-                  <%= form.label :date_range_option, "Date range", for: "date-range-option" %>
+                  <%= form.radio_button :selection_type,
+                                    "date-range",
+                                    id: "date-range-option",
+                                    class: "form-check-input selection-radio me-1" %>
+                  <%= form.label :date_range_option,
+                             "Date range",
+                             for: "date-range-option",
+                             class: "form-check-label" %>
                 </div>
-
                 <div>
-                  <%= form.radio_button :selection_type, "anytime", id: "anytime-option", class: "selection-radio" %>
-                  <%= form.label :anytime_option, "Anytime", for: "anytime-option" %>
+                  <%= form.radio_button :selection_type,
+                                    "anytime",
+                                    id: "anytime-option",
+                                    class: "form-check-input selection-radio me-1" %>
+                  <%= form.label :anytime_option,
+                             "Anytime",
+                             for: "anytime-option",
+                             class: "form-check-label" %>
                 </div>
               </div>
+              <%# Feedback div associated with the group requirement %>
+              <div class="invalid-feedback" style="display: block;">Please select one availability option.</div>
+              <%# Note: 'display: block;' helps ensure it shows with was-validated, may need adjustment based on Bootstrap version/CSS %>
+              <%# Removed the complex dummy input %>
             </div>
 
-            <!-- availability: choose one semester -->
+            <%# Conditional Field: Semester Selection %>
             <div id="semester-selection" class="mb-3" style="display: none;">
               <%= form.label :start_semester, "Select Semester:", class: "form-label" %>
-              <div>
-                <%= form.select :start_semester, [["Spring", "spring"], ["Summer", "summer"], ["Fall", "fall"]], {}, class: "semester-dropdown" %>
-                <%= form.select :start_year, (Date.today.year..(Date.today.year + 5)).to_a, {}, class: "year-dropdown" %>
+              <div class="input-group">
+                <%= form.select :start_semester,
+                            options_for_select(
+                              [%w[Spring spring], %w[Summer summer], %w[Fall fall]],
+                            ),
+                            { include_blank: "Select Semester..." },
+                            {
+                              class: "form-select semester-dropdown",
+                              id: "project_start_semester",
+                            } %>
+                <%= form.select :start_year,
+                            options_for_select((Date.today.year..(Date.today.year + 5)).to_a),
+                            { include_blank: "Select Year..." },
+                            { class: "form-select year-dropdown", id: "project_start_year" } %>
+                <%# You might add validation feedback here if making semester/year required via JS %>
               </div>
             </div>
 
-            <!-- availability: choose a date range -->
-            <div id="date-range-selection" class="mb-3" style="display: none;">
-              <%= form.label :start_date, "Start Date:", class: "form-label" %>
-              <%= form.date_field :start_date, class: "form-control" %>
-
-              <%= form.label :end_date, "End Date:", class: "form-label" %>
-              <%= form.date_field :end_date, class: "form-control" %>
+            <%# Conditional Field: Date Range Selection %>
+            <div id="date-range-selection" class="row g-3 mb-3" style="display: none;">
+              <div class="col-md-6">
+                <%= form.label :start_date, "Start Date:", class: "form-label" %>
+                <%= form.date_field :start_date, class: "form-control", id: "project_start_date" %>
+                <div class="invalid-feedback">Please select a start date.</div>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :end_date, "End Date:", class: "form-label" %>
+                <%= form.date_field :end_date, class: "form-control", id: "project_end_date" %>
+                <%# Improved message for end date validation %>
+                <div class="invalid-feedback">Please select an end date (must be on or after start date).</div>
+              </div>
             </div>
 
+            <%# Preferred Class (Optional) %>
             <div class="mb-3">
               <%= form.label :prefered_class, "Preferred Class (Optional)", class: "form-label" %>
               <%= form.text_field :prefered_class,
                               id: "project_prefered_class",
                               class: "form-control",
                               maxlength: 255 %>
-              <%# maxlength %>
             </div>
 
+            <%# Other Comments (Optional) %>
             <div class="mb-3">
               <%= form.label :other_comments, "Other Comments (Optional)", class: "form-label" %>
               <%= form.text_area :other_comments,
@@ -118,73 +169,131 @@
                              class: "form-control",
                              rows: 4,
                              maxlength: 1000 %>
-              <%# maxlength %>
             </div>
 
+            <%# Submit Button %>
             <div class="d-grid gap-2">
               <%= form.submit "Create Project", class: "btn btn-success" %>
             </div>
           <% end %>
+          <%# End Form %>
+
+          <%# Back Link %>
           <div class="text-center mt-3">
             <%= link_to "Back to Projects", projects_path, class: "btn btn-secondary" %>
           </div>
         </div>
+        <%# End card-body %>
       </div>
+      <%# End card %>
     </div>
+    <%# End col %>
   </div>
+  <%# End row %>
 </div>
+<%# End container %>
+
+<%# JavaScript for Conditional Fields and Validation %>
 <script>
-  // Prevent form submission if invalid
   (function() {
     'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
 
-    // handle display of availability field
-    document.addEventListener('DOMContentLoaded', function () {
+    // Function to handle display AND REQUIRED STATE of availability fields
+    function setupAvailabilityFields() {
       const radios = document.querySelectorAll('.selection-radio');
       const semesterDiv = document.getElementById('semester-selection');
       const dateRangeDiv = document.getElementById('date-range-selection');
+      const startDateInput = document.getElementById('project_start_date');
+      const endDateInput = document.getElementById('project_end_date');
+      // Add semester/year refs if you make them required later
+      // const startSemesterSelect = document.getElementById('project_start_semester');
+      // const startYearSelect = document.getElementById('project_start_year');
 
       function toggleFields() {
         const selectedValue = document.querySelector('.selection-radio:checked')?.value;
 
+        // --- Reset dependent field requirements ---
+        if (startDateInput) startDateInput.required = false;
+        if (endDateInput) endDateInput.required = false;
+        // Reset semester/year if needed
+        // if (startSemesterSelect) startSemesterSelect.required = false;
+        // if (startYearSelect) startYearSelect.required = false;
+
+        // --- Hide/Show divs and set requirements based on radio selection ---
         switch (selectedValue) {
           case 'semester':
-            semesterDiv.style.display = 'block';
-            dateRangeDiv.style.display = 'none';
+            if (semesterDiv) semesterDiv.style.display = 'block';
+            if (dateRangeDiv) dateRangeDiv.style.display = 'none';
+            // Make semester/year required if needed (example)
+            // if (startSemesterSelect) startSemesterSelect.required = true;
+            // if (startYearSelect) startYearSelect.required = true;
             break;
 
           case 'date-range':
-            semesterDiv.style.display = 'none';
-            dateRangeDiv.style.display = 'block';
+            if (semesterDiv) semesterDiv.style.display = 'none';
+            if (dateRangeDiv) dateRangeDiv.style.display = 'flex'; // Use flex for row/col layout
+             // --- Make date fields required ---
+            if (startDateInput) startDateInput.required = true;
+            if (endDateInput) endDateInput.required = true;
             break;
 
-          default:
-            semesterDiv.style.display = 'none';
-            dateRangeDiv.style.display = 'none';
+          default: // 'anytime' or nothing selected
+            if (semesterDiv) semesterDiv.style.display = 'none';
+            if (dateRangeDiv) dateRangeDiv.style.display = 'none';
+            // Dependent fields remain not required (reset at top)
             break;
         }
       }
 
+      // Add change listeners to radio buttons
       radios.forEach(radio => {
         radio.addEventListener('change', toggleFields);
       });
 
-      // initialize correct display on page load
+      // Initialize correct display and required state on page load/reload
       toggleFields();
+    }
+
+    // Function to setup Bootstrap validation feedback
+    function setupBootstrapValidation() {
+      var forms = document.querySelectorAll('.needs-validation');
+
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            // --- Simplified: Rely on native checkValidity + Bootstrap's display logic ---
+
+            // Date range order validation (client-side)
+            const startDateInput = form.querySelector('#project_start_date');
+            const endDateInput = form.querySelector('#project_end_date');
+            if (startDateInput && endDateInput && startDateInput.value && endDateInput.value) {
+                if (endDateInput.value < startDateInput.value) {
+                    // Set custom error message for the end date field
+                    endDateInput.setCustomValidity('End date must be on or after the start date.');
+                } else {
+                    // Clear custom error message if dates are valid
+                    endDateInput.setCustomValidity('');
+                }
+            } else if (endDateInput) {
+                 // Clear if one field is empty, let 'required' handle it
+                endDateInput.setCustomValidity('');
+            }
+
+            // Main Bootstrap validation check
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+          }, false);
+        });
+    }
+
+    // Run setup functions when the DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      setupAvailabilityFields();
+      setupBootstrapValidation();
     });
 
   })();

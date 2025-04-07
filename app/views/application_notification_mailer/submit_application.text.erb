@@ -1,0 +1,27 @@
+<%# app/views/application_notification_mailer/submit_application.text.erb %>
+New Research Application Received
+=============================================== An application has been
+submitted for the research project:
+<%= @project.title %>
+Applicant Information --------------------- Name:
+<%= @application_data[:first_name] %>
+<%= @application_data[:last_name] %>
+UIN:
+<%= @application_data[:uin] %>
+TAMU Email:
+<%= @application_data[:tamu_email] %>
+Submitted By (User):
+<%= @applicant.name %>
+(<%= @applicant.email %>) Application Details ------------------- Why are you interested in this
+field?
+<%= @application_data[:interest_reason] %>
+Personal Projects:
+<%= @application_data[:personal_projects].presence || "N/A" %>
+Relevant Classes:
+<%= @application_data[:relevant_classes].presence || "N/A" %>
+Work Experience:
+<%= @application_data[:work_experience].presence || "N/A" %>
+GitHub Link:
+<%= @application_data[:github_link].presence || "N/A" %>
+----------------------------------------------- Please follow up with the
+applicant (<%= @applicant.email %>) directly if you are interested.

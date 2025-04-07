@@ -30,7 +30,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || root_path
+    # Ignore stored_location here if you ALWAYS want OAuth users
+    # to land on projects_path after login.
+    projects_path
+
+    # OR, if you still want to respect stored_location *even for OAuth*:
+    # stored_location_for(resource_or_scope) || projects_path
   end
 
   private
