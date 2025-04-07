@@ -128,17 +128,21 @@
 
             <p class="project-description"><strong>Other Comments:</strong>
               <%= project.other_comments.presence || "N/A" %></p>
-            <%# Apply Button / Link %>
+            <%# Apply Button / Link section %>
             <div class="text-end mt-3">
-              <%# Added margin-top %>
-              <%# --- UPDATED Apply Link --- %>
+              <%# --- UPDATED Apply Link Logic --- %>
               <% if user_signed_in? %>
-                <%# Only show if logged in %>
-                <%= link_to "Apply for this Project",
-                new_project_application_path(project),
-                class: "btn btn-primary" %>
+                <%# Show button ONLY if user is a student OR an admin %>
+                <% if current_user.student? || current_user.admin? %>
+                  <%= link_to "Apply for this Project",
+                  new_project_application_path(project),
+                  class: "btn btn-primary" %>
+                <% else %>
+                  <%# Optional: Message for logged-in users who are NOT students/admins (e.g., faculty) %>
+                  <span class="text-muted"><small>Application restricted to students and administrators.</small></span>
+                <% end %>
               <% else %>
-                <%# Maybe add a message prompting login to apply %>
+                <%# Message prompting login to apply %>
                 <p><small>Please
                     <%= link_to "Sign In", new_user_session_path %>
                     to apply.</small></p>

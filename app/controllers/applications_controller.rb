@@ -4,6 +4,7 @@ class ApplicationsController < ApplicationController
   before_action :set_project, only: [:new, :create]
   # Optional: Add authorization check to ensure only students can apply
   # before_action :require_student, only: [:new, :create]
+  before_action :require_student_or_admin, only: [:new, :create] # <-- ADD THIS LINE
 
   # Action for the landing page (root)
   def landing
@@ -92,6 +93,12 @@ class ApplicationsController < ApplicationController
     unless current_user.student? # Assumes student? method exists on User model
       flash[:alert] = "Only students can submit applications."
       redirect_to projects_path
+    end
+  end
+  def require_student_or_admin
+    unless current_user.student? || current_user.admin?
+      flash[:alert] = "You are not authorized to perform this action. Only students or administrators can apply."
+      redirect_to projects_path # Redirect non-students/admins away
     end
   end
 end
