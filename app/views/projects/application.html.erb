@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 60px;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 14px;
+        }
+        button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 15px;
+            border: none;
+            background: #500000;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #400000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Answer the following questions</h2>
+        <div id="questions"></div>
+        <button onclick="submitAnswers()">Submit</button>
+    </div>
+
+    <script>
+        const questions = [
+            "Last Name* ",
+            "First Name*",
+            "UIN*",
+            "Texas A&M Email*",
+            "Why are you interested in this field?*",
+            "Enter Personal Projects",
+            "Relevant Classes",
+            "Work Experience",
+            "Github Link"
+        ];
+
+        const questionsContainer = document.getElementById("questions");
+
+        questions.forEach((question, index) => {
+            const div = document.createElement("div");
+            div.classList.add("question");
+            div.innerHTML = `
+                <label for="q${index}">${question}</label>
+                <textarea id="q${index}" name="q${index}"></textarea>
+            `;
+            questionsContainer.appendChild(div);
+        });
+
+        function submitAnswers() {
+            let answers = {};
+            questions.forEach((question, index) => {
+                answers[question] = document.getElementById(`q${index}`).value;
+            });
+            console.log("User Answers:", answers);
+            alert("Answers submitted! Check console for details.");
+        }
+    </script>
+</body>
+</html>
