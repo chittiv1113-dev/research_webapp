@@ -1,28 +1,30 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  # get "projects/index"
-  root to: "projects#index"
+  # --- NEW: Set root to the landing page ---
+  root to: "applications#landing"
+
+  # Devise routes (keep as is)
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   devise_scope :user do
     get "users/sign_in", to: "users/sessions#new", as: :new_user_session
     get "users/sign_out", to: "users/sessions#destroy", as: :destroy_user_session
   end
 
-  resources :projects, only: [ :index, :new, :create, :edit, :update, :destroy, :show ] # Add edit, update, and destroy
-  resources :admins, only: [ :index, :new, :create, :edit, :update, :destroy ]
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # --- UPDATED: Nest applications under projects ---
+  resources :projects, only: [ :index, :new, :create, :edit, :update, :destroy, :show ] do
+    resources :applications, only: [:new, :create] # Creates new_project_application_path and project_applications_path
+  end
+
+  # Admin, Faculty, Student routes (keep as is)
+  resources :admins, only: [ :index, :new, :create, :edit, :update, :destroy ] # Assuming this controller exists for admin user management?
+  get "admin_dashboard" => "admins#dashboard", as: :admin_dashboard # Assuming admins#dashboard exists
   resources :faculties
   resources :students
 
-  get "admin_dashboard" => "admins#dashboard", as: :admin_dashboard
+  # Health check (keep as is)
+  get "up" => "rails/health#show", as: :rails_health_check
 
-  post "forms/send_form/:project_id", to: "forms#send_form", as: "send_form"
+  # --- REMOVE old form route if it exists ---
+  # post "forms/send_form/:project_id", to: "forms#send_form", as: "send_form" # Remove this line
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

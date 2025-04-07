@@ -1,0 +1,133 @@
+<%# app/views/applications/landing.html.erb %>
+
+<%# Optional: Add specific styles if needed, or move to application.scss %>
+<style>
+  /* Basic styles adapted from the raw HTML, consider moving to SCSS */
+  .landing-header {
+    background: #500000; /* TAMU Maroon */
+    color: #fff;
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .landing-header h1 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .landing-header p {
+    font-size: 1.5rem; /* Adjusted size */
+    color: #fff;
+    margin-bottom: 0;
+  }
+  .landing-main {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+  .landing-main h2, .landing-main h3 {
+    color: #500000; /* TAMU Maroon */
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .landing-main ul {
+    list-style-type: square;
+    padding-left: 2rem; /* Indent list */
+  }
+  .landing-main li {
+    margin-bottom: 0.75rem;
+  }
+  .advisor-section {
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+  }
+  .landing-footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    background: #500000; /* TAMU Maroon */
+    color: #fff;
+    margin-top: 2rem;
+  }
+</style>
+
+<div class="landing-header">
+  <div class="container">
+    <h1>Undergraduate Research</h1>
+    <p>Welcome to the Texas A&M University CSCE Honors Research Portal</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="landing-main">
+    <section id="advising-info">
+      <h2>Department Information</h2>
+      <p>The CSCE Honors Program at Texas A&M University offers a unique
+        opportunity for ambitious students to excel both personally and
+        professionally in the field of Computer Science and Computer
+        Engineering. This distinguished program empowers high-achieving
+        students to take the lead in research, collaborate with world-class
+        faculty, and drive innovation across a wide range of technological
+        domains.</p>
+    </section>
+
+    <section id="drop-in-times">
+      <h2>Honors Students</h2>
+      <p>As a member of the CSCE Honors Program, you will gain unparalleled
+        access to cutting-edge resources, personalized faculty advisement, and
+        exclusive research opportunities. This portal is designed to foster
+        your intellectual curiosity and push the boundaries of what is possible
+        in the rapidly evolving fields of computer science and engineering.</p>
+      <p>On this page, you will find valuable resources to guide your academic
+        journey:</p>
+      <ul>
+        <li><strong>Research Opportunities:</strong>
+          Explore a variety of ongoing research projects in collaboration with
+          top-tier faculty members in alignment with
+          <a
+            href="https://engineering.tamu.edu/academics/eh/departments/csce-track/requirements.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Program Requirements</a></li>
+        <li><strong>Faculty Contacts:</strong>
+          Easily connect with experienced professors and mentors who will
+          provide personalized guidance and support.</li>
+        <li><strong>Program Highlights:</strong>
+          Learn about the distinctive advantages of being part of the CSCE
+          Honors Program and how it can accelerate your growth.</li>
+      </ul>
+      <p>Whether you’re looking to deepen your expertise, develop innovative
+        solutions, or take on leadership roles in research, you can utilize the
+        tools to explore your next step. Start your journey toward excellence
+        today!</p>
+      <h3>
+        <%# Link to the projects index page %>
+        <%= link_to "Click HERE to view all available research opportunities",
+        projects_path,
+        class: "btn btn-primary btn-lg mt-3" %>
+      </h3>
+    </section>
+
+    <section id="advisors" class="advisor-section">
+      <h2>Administrative Coordinator</h2>
+      <div>
+        <%# Removed advisor class, adjust styling as needed %>
+        <h3>Stephanie Vilas</h3>
+        <p>Computer Science & Engineering<br>
+          Undergraduate Honors Administrator<br>
+          Office: 3112 TAMU<br>
+          Email:
+          <a href="mailto:stephanie.vilas@tamu.edu">stephanie.vilas@tamu.edu</a></p>
+      </div>
+      <%# Add more admin contacts if needed %>
+    </section>
+  </div>
+</div>
+
+<footer class="landing-footer">
+  <div class="container">
+    <p>©
+      <%= Time.now.year %>
+      Texas A&M University | Department of Computer Science & Engineering</p>
+  </div>
+</footer>

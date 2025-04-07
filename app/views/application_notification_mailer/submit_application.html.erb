@@ -1,0 +1,78 @@
+<%# app/views/application_notification_mailer/submit_application.html.erb %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <style>
+    /* Add some basic styling */
+    body { font-family: sans-serif; line-height: 1.4; }
+    strong { color: #333; }
+    .label { font-weight: bold; }
+    .value { margin-left: 5px; }
+    hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+    </style>
+  </head>
+  <body>
+    <h2>New Research Application Received</h2>
+    <p>
+      An application has been submitted for the research project:
+      <strong><%= @project.title %></strong>
+    </p>
+    <hr>
+    <h3>Applicant Information</h3>
+    <p>
+      <span class="label">Name:</span>
+      <span class="value"><%= @application_data[:first_name] %>
+        <%= @application_data[:last_name] %></span>
+    </p>
+    <p>
+      <span class="label">UIN:</span>
+      <span class="value"><%= @application_data[:uin] %></span>
+    </p>
+    <p>
+      <span class="label">TAMU Email:</span>
+      <span class="value"><%= mail_to @application_data[:tamu_email] %></span>
+    </p>
+    <p>
+      <span class="label">Submitted By (User):</span>
+      <span class="value"><%= @applicant.name %>
+        (<%= mail_to @applicant.email %>)</span>
+      <%# Logged in user %>
+    </p>
+
+    <hr>
+    <h3>Application Details</h3>
+
+    <p>
+      <strong class="label">Why are you interested in this field?</strong><br>
+      <%= simple_format(@application_data[:interest_reason]) %>
+    </p>
+    <p>
+      <strong class="label">Personal Projects:</strong><br>
+      <%= simple_format(@application_data[:personal_projects].presence || "N/A") %>
+    </p>
+    <p>
+      <strong class="label">Relevant Classes:</strong><br>
+      <%= simple_format(@application_data[:relevant_classes].presence || "N/A") %>
+    </p>
+    <p>
+      <strong class="label">Work Experience:</strong><br>
+      <%= simple_format(@application_data[:work_experience].presence || "N/A") %>
+    </p>
+    <p>
+      <strong class="label">GitHub Link:</strong><br>
+      <% if @application_data[:github_link].present? %>
+        <%= link_to @application_data[:github_link],
+        @application_data[:github_link],
+        target: "_blank" %>
+      <% else %>
+        N/A
+      <% end %>
+    </p>
+
+    <hr>
+    <p>
+      Please follow up with the applicant (<%= mail_to @applicant.email %>) directly if you are interested.
+    </p>
+  </body>
+</html>
