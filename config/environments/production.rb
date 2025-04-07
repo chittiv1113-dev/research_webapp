@@ -71,7 +71,11 @@ config.action_mailer.smtp_settings = {
   config.action_mailer.perform_deliveries = true
 
   # VERY IMPORTANT: Set default_url_options for production (Heroku)
-  config.action_mailer.default_url_options = { host: ENV['HEROKU_APP_NAME'] + ".herokuapp.com" } # Use Heroku app name
+  config.action_mailer.default_url_options = {
+  host: "#{ENV['HEROKU_APP_NAME'] || 'research-portal'}.herokuapp.com"
+}
+
+ # Use Heroku app name
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
