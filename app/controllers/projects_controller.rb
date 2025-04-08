@@ -33,7 +33,6 @@ class ProjectsController < ApplicationController
                            .joins("LEFT OUTER JOIN users AS admin_users ON admin_users.id = projects.admin_id")
                            .where("projects.title ILIKE :term
                                    OR projects.areas_of_research ILIKE :term
-                                   OR projects.start_semester ILIKE :term
                                    OR projects.prefered_class ILIKE :term
                                    OR users.name ILIKE :term
                                    OR users.email ILIKE :term
