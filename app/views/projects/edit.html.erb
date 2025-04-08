@@ -43,15 +43,21 @@
               <%# Required and maxlength %>
             </div>
 
+            <%# --- START CORRECTED block for num_positions --- %>
             <div class="mb-3">
               <%= form.label :num_positions, "Number of Positions", class: "form-label" %>
-              <%= form.text_field :num_positions,
-                              id: "project_num_positions",
-                              class: "form-control",
-                              required: true,
-                              maxlength: 10 %>
-              <%# Required and maxlength %>
+              <%# Use number_field, add min/step attributes %>
+              <%= form.number_field :num_positions,
+                                id: "project_num_positions",
+                                class: "form-control",
+                                required: true,
+                                min: 1,
+                                step: 1 %>
+              <%# <--- MAKE SURE THERE IS NO EXTRA %>
+              HERE %>
+              <div class="invalid-feedback">Please enter a valid number of positions (must be 1 or more).</div>
             </div>
+            <%# --- END CORRECTED block for num_positions --- %>
 
             <div class="mb-3">
               <%= form.label :areas_of_research, class: "form-label" %>
@@ -68,31 +74,47 @@
               <%= form.label :selection_type, "Availability", class: "form-label" %>
               <div class="d-flex flex-column">
                 <div>
-                  <%= form.radio_button :selection_type, "semester", id: "semester-option", class: "selection-radio", checked: @selection_type == "semester" %>
+                  <%= form.radio_button :selection_type,
+                                    "semester",
+                                    id: "semester-option",
+                                    class: "selection-radio",
+                                    checked: @selection_type == "semester" %>
                   <%= form.label :semester_option, "One semester", for: "semester-option" %>
                 </div>
 
                 <div>
-                  <%= form.radio_button :selection_type, "date-range", id: "date-range-option", class: "selection-radio", checked: @selection_type == "date-range" %>
+                  <%= form.radio_button :selection_type,
+                                    "date-range",
+                                    id: "date-range-option",
+                                    class: "selection-radio",
+                                    checked: @selection_type == "date-range" %>
                   <%= form.label :date_range_option, "Date range", for: "date-range-option" %>
                 </div>
 
                 <div>
-                  <%= form.radio_button :selection_type, "anytime", id: "anytime-option", class: "selection-radio", checked: @selection_type == "anytime" %>
+                  <%= form.radio_button :selection_type,
+                                    "anytime",
+                                    id: "anytime-option",
+                                    class: "selection-radio",
+                                    checked: @selection_type == "anytime" %>
                   <%= form.label :anytime_option, "Anytime", for: "anytime-option" %>
                 </div>
               </div>
             </div>
-
             <!-- availability: choose one semester -->
             <div id="semester-selection" class="mb-3" style="display: none;">
               <%= form.label :start_semester, "Select Semester:", class: "form-label" %>
               <div>
-                <%= form.select :start_semester, [["Spring", "spring"], ["Summer", "summer"], ["Fall", "fall"]], { selected: @selected_semester }, class: "semester-dropdown" %>
-                <%= form.select :start_year, (Date.today.year..(Date.today.year + 5)).to_a, { selected: @project.start_date.year }, class: "year-dropdown" %>
+                <%= form.select :start_semester,
+                            [%w[Spring spring], %w[Summer summer], %w[Fall fall]],
+                            { selected: @selected_semester },
+                            class: "semester-dropdown" %>
+                <%= form.select :start_year,
+                            (Date.today.year..(Date.today.year + 5)).to_a,
+                            { selected: @project.start_date.year },
+                            class: "year-dropdown" %>
               </div>
             </div>
-
             <!-- availability: choose a date range -->
             <div id="date-range-selection" class="mb-3" style="display: none;">
               <%= form.label :start_date, "Start Date:", class: "form-label" %>
