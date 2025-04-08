@@ -66,7 +66,7 @@ class ApplicationsController < ApplicationController
         project: @project,
         application_data: application_data,
         recipients: recipient_emails
-      ).deliver_later # Use deliver_later for background processing
+      ).deliver_now # Use deliver_later for background processing
 
       # 5. Set success feedback and redirect
       flash[:notice] = "Your application for '#{@project.title}' has been submitted successfully."
