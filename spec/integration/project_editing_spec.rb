@@ -15,7 +15,7 @@ RSpec.describe "Project Editing", type: :system do
       end_date: Date.today + 3.months,
       # -- Optionally set selection_type if needed for default view state --
       # selection_type: 'date-range',
-      faculties: [faculty] # Associate using the let! variable
+      faculties: [ faculty ] # Associate using the let! variable
     )
   end
 
@@ -145,7 +145,6 @@ RSpec.describe "Project Editing", type: :system do
         expect(page).to have_selector("#error_explanation li", text: "Title can't be blank")
         expect(page).to have_selector("#error_explanation li", text: /Num positions is not a number|Num positions must be an integer/i) # Check specific number validation error
     end
-
   end
 
   # --- Rainy Day & Admin Scenarios ---
@@ -210,7 +209,7 @@ RSpec.describe "Project Editing", type: :system do
 
         # Check the response status or redirection after the direct request
         # Devise should intercept and redirect to login
-        expect(page.driver.status_code).to be_in([302, 303]) # Redirect status
+        expect(page.driver.status_code).to be_in([ 302, 303 ]) # Redirect status
         # Hard to check current_path after direct driver submission with rack_test,
         # focus on status code or check logs/controller behavior if needed.
         # Alternatively, visit the page after submission attempt and check redirection:
@@ -218,5 +217,4 @@ RSpec.describe "Project Editing", type: :system do
         expect(page).to have_current_path(new_user_session_path) # Should be forced to login
       end
    end
-
 end
