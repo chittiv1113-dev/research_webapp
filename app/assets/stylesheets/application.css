@@ -88,13 +88,14 @@
 }
 
 #header-left > h1 {
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 #header-right {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: flex-end;
-    gap: 3em;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 3em;
+  padding: 1em;
 }

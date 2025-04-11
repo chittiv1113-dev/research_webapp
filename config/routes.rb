@@ -16,8 +16,9 @@ Rails.application.routes.draw do
   end
 
   # Admin, Faculty, Student routes (keep as is)
-  resources :admins, only: [ :index, :new, :create, :edit, :update, :destroy ] # Assuming this controller exists for admin user management?
-  get "admin_dashboard" => "admins#dashboard", as: :admin_dashboard # Assuming admins#dashboard exists
+  resources :admins, only: [ :index, :new, :create, :edit, :update, :destroy ]
+  get "admin_dashboard" => "admins#dashboard", as: :admin_dashboard
+  get "documentation" => "pages#documentation", as: :documentation
   resources :faculties
   resources :students
 

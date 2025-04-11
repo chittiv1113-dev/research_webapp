@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Research Portal Documentation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+      }
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .header-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #500000; /* 🍷 MAROON COLOR */
+        padding: 1em 2em;
+        color: white;
+      }
+      .header-bar h1 {
+        margin: 0;
+        font-size: 1.5em;
+      }
+      .btn-primary {
+        text-decoration: none;
+        color: white;
+        background-color: #007bff;
+        padding: 0.5em 1em;
+        border-radius: 4px;
+      }
+      h2 {
+        margin-top: 30px;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 5px;
+      }
+      h3 {
+        margin-top: 20px;
+        color: #495057;
+      }
+      ul {
+        list-style: disc inside;
+        padding-left: 1em;
+      }
+      p {
+        line-height: 1.6;
+      }
+      strong {
+        color: #212529;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-bar">
+      <h1>Research Portal Documentation</h1>
+      <%= link_to "Back to Projects List", projects_path, class: "btn btn-warning" %>
+    </div>
+
+    <div class="container">
+    <h2>Admin Dashboard</h2>
+      <p>
+        The Admin Dashboard is a centralized interface that allows authorized users (admins and faculty) to manage users in three categories: 
+        <strong>Students</strong>, <strong>Faculty</strong>, and <strong>Admins</strong>.
+      </p>
+
+      <h2>User Types Overview</h2>
+      <h3>Student</h3>
+      <p>Students can view projects and apply for research opportunities. They have basic access to the website.</p>
+
+      <h3>Faculty</h3>
+      <p>Faculty members can do everything students can, plus they can create projects and notify students.</p>
+
+      <h3>Admin</h3>
+      <p>Admins can do everything faculty and students can. In addition, they can manage faculty, students, and admin users.</p>
+
+      <h2>Admin Dashboard Navigation</h2>
+      <p>The dashboard includes the following main buttons:</p>
+      <ul>
+        <li><strong>Manage Faculty List</strong></li>
+        <li><strong>Manage Student List</strong></li>
+        <li><strong>Manage Admin List</strong></li>
+        <li><strong>Back to Projects</strong></li>
+      </ul>
+
+      <h2>Manage Faculty List</h2>
+      <h3>Viewing Faculty</h3>
+      <ul>
+        <li>View all faculty with name, email, and department.</li>
+      </ul>
+
+      <h3>Creating New Faculty</h3>
+      <ul>
+        <li>Click <strong>"New Faculty"</strong>.</li>
+        <li>Fill out the form:
+          <ul>
+            <li><strong>Email:</strong> Required</li>
+            <li><strong>Name:</strong> Optional</li>
+            <li><strong>Department:</strong> Optional</li>
+          </ul>
+        </li>
+        <li>Click <strong>"Create Faculty"</strong> or <strong>"Back to Faculty List"</strong> to cancel.</li>
+      </ul>
+
+      <h3>Editing Faculty</h3>
+      <ul>
+        <li>Click <strong>"Edit"</strong> next to the faculty you want to update.</li>
+        <li>Modify the fields and click <strong>"Update Faculty"</strong>.</li>
+      </ul>
+
+      <h3>Deleting Faculty</h3>
+      <ul>
+        <li>Click <strong>"Delete"</strong> and confirm the deletion.</li>
+      </ul>
+
+      <h2>Manage Student List</h2>
+      <h3>Viewing Students</h3>
+      <ul>
+        <li>Displays all students with name, email, year, and major.</li>
+      </ul>
+
+      <h3>Creating New Student</h3>
+      <ul>
+        <li>Click <strong>"New Student"</strong>.</li>
+        <li>Fill out the form:
+          <ul>
+            <li><strong>Email:</strong> Required</li>
+            <li><strong>Name:</strong> Optional</li>
+            <li><strong>Year:</strong> Optional</li>
+            <li><strong>Major:</strong> Optional</li>
+          </ul>
+        </li>
+        <li>Click <strong>"Create Student"</strong> or <strong>"Back to Student List"</strong> to cancel.</li>
+      </ul>
+
+      <h3>Editing Students</h3>
+      <ul>
+        <li>Click <strong>"Edit"</strong> next to the student you want to update.</li>
+        <li>Modify the fields and click <strong>"Update Student"</strong>.</li>
+      </ul>
+
+      <h3>Deleting Students</h3>
+      <ul>
+        <li>Click <strong>"Delete"</strong> and confirm the deletion.</li>
+      </ul>
+
+      <h2>Manage Admin List</h2>
+      <h3>Viewing Admins</h3>
+      <ul>
+        <li>Displays all admins with name, email, and role.</li>
+      </ul>
+
+      <h3>Creating New Admin</h3>
+      <ul>
+        <li>Click <strong>"New Admin"</strong>.</li>
+        <li>Fill out the form:
+          <ul>
+            <li><strong>Email:</strong> Required</li>
+            <li><strong>Name:</strong> Optional</li>
+            <li><strong>Role:</strong> Optional (if applicable)</li>
+          </ul>
+        </li>
+        <li>Click <strong>"Create Admin"</strong> or <strong>"Back to Admin List"</strong> to cancel.</li>
+      </ul>
+
+      <h3>Editing Admins</h3>
+      <ul>
+        <li>Click <strong>"Edit"</strong> next to the admin you want to update.</li>
+        <li>Modify the fields and click <strong>"Update Admin"</strong>.</li>
+      </ul>
+
+      <h3>Deleting Admins</h3>
+      <ul>
+        <li>Click <strong>"Delete"</strong> and confirm the deletion.</li>
+      </ul>
+    </div>
+  </body>
+</html>
