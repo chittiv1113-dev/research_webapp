@@ -78,6 +78,7 @@
                                     "semester",
                                     id: "semester-option",
                                     class: "selection-radio",
+                                    required: true,
                                     checked: @selection_type == "semester" %>
                   <%= form.label :semester_option, "One semester", for: "semester-option" %>
                 </div>
@@ -108,10 +109,12 @@
                 <%= form.select :start_semester,
                             [%w[Spring spring], %w[Summer summer], %w[Fall fall]],
                             { selected: @selected_semester },
+                            required: true,
                             class: "semester-dropdown" %>
                 <%= form.select :start_year,
                             (Date.today.year..(Date.today.year + 5)).to_a,
                             { selected: @project.start_date.year },
+                            required: true,
                             class: "year-dropdown" %>
               </div>
             </div>

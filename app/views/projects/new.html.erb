@@ -128,11 +128,12 @@
                             {
                               class: "form-select semester-dropdown",
                               id: "project_start_semester",
+                              required: true,
                             } %>
                 <%= form.select :start_year,
                             options_for_select((Date.today.year..(Date.today.year + 5)).to_a),
                             { include_blank: "Select Year..." },
-                            { class: "form-select year-dropdown", id: "project_start_year" } %>
+                            { class: "form-select year-dropdown", id: "project_start_year", required: true } %>
                 <%# You might add validation feedback here if making semester/year required via JS %>
               </div>
             </div>
@@ -205,9 +206,8 @@
       const dateRangeDiv = document.getElementById('date-range-selection');
       const startDateInput = document.getElementById('project_start_date');
       const endDateInput = document.getElementById('project_end_date');
-      // Add semester/year refs if you make them required later
-      // const startSemesterSelect = document.getElementById('project_start_semester');
-      // const startYearSelect = document.getElementById('project_start_year');
+      const startSemesterSelect = document.getElementById('project_start_semester');
+      const startYearSelect = document.getElementById('project_start_year');
 
       function toggleFields() {
         const selectedValue = document.querySelector('.selection-radio:checked')?.value;
@@ -215,24 +215,21 @@
         // --- Reset dependent field requirements ---
         if (startDateInput) startDateInput.required = false;
         if (endDateInput) endDateInput.required = false;
-        // Reset semester/year if needed
-        // if (startSemesterSelect) startSemesterSelect.required = false;
-        // if (startYearSelect) startYearSelect.required = false;
+        if (startSemesterSelect) startSemesterSelect.required = false;
+        if (startYearSelect) startYearSelect.required = false;
 
         // --- Hide/Show divs and set requirements based on radio selection ---
         switch (selectedValue) {
           case 'semester':
             if (semesterDiv) semesterDiv.style.display = 'block';
             if (dateRangeDiv) dateRangeDiv.style.display = 'none';
-            // Make semester/year required if needed (example)
-            // if (startSemesterSelect) startSemesterSelect.required = true;
-            // if (startYearSelect) startYearSelect.required = true;
+            if (startSemesterSelect) startSemesterSelect.required = true;
+            if (startYearSelect) startYearSelect.required = true;
             break;
 
           case 'date-range':
             if (semesterDiv) semesterDiv.style.display = 'none';
             if (dateRangeDiv) dateRangeDiv.style.display = 'flex'; // Use flex for row/col layout
-             // --- Make date fields required ---
             if (startDateInput) startDateInput.required = true;
             if (endDateInput) endDateInput.required = true;
             break;
