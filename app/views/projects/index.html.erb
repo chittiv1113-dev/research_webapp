@@ -100,8 +100,10 @@
                   <%= project.areas_of_research %></p>
                 <p class="project-description"><strong>Start Date:</strong>
                   <%= project.start_date %></p>
-                <p class="project-description"><strong>End Date:</strong>
-                  <%= project.end_date %></p>
+                <% if project.end_date <= Date.today + 100.years %>
+                  <p class="project-description"><strong>End Date:</strong>
+                    <%= project.end_date %></p>
+                <% end %>
                 <p class="project-description"><strong>Preferred Class:</strong>
                   <%= project.prefered_class %></p>
                 <p class="project-description"><strong>Number of Positions:</strong>
