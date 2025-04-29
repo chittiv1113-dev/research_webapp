@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   # Admin, Faculty, Student routes (keep as is)
   resources :admins, only: [ :index, :new, :create, :edit, :update, :destroy ]
   get "admin_dashboard" => "admins#dashboard", as: :admin_dashboard
- # --- UPDATED: Documentation Routes ---
+  # --- UPDATED: Documentation Routes ---
   # Renamed route helper for clarity, path remains /documentation
   get "documentation" => "pages#documentation", as: :admin_dashboard_documentation
   # New route for role-specific help pages

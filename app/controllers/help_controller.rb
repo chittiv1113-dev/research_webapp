@@ -6,18 +6,18 @@ class HelpController < ApplicationController
   def show
     if user_signed_in?
       if current_user.admin?
-        render 'admin_help' # Specific help view for admins (project creation focus)
+        render "admin_help" # Specific help view for admins (project creation focus)
       elsif current_user.faculty?
-        render 'faculty_help'
+        render "faculty_help"
       elsif current_user.student?
-        render 'student_help'
+        render "student_help"
       else
         # Logged in, but no specific role (should ideally not happen with your setup, but handle just in case)
-        render 'general_help'
+        render "general_help"
       end
     else
       # Not signed in
-      render 'general_help'
+      render "general_help"
     end
   end
 end
