@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Research Portal Help</title>
+    <%= render "help/common_style" %>
+  </head>
+  <body>
+    <div class="header-bar">
+      <h1>Research Portal Help</h1>
+      <%= link_to "Back to Projects", projects_path, class: "btn-back" %>
+    </div>
+
+    <div class="container">
+      <h2>Welcome to the Research Opportunities Portal!</h2>
+      <p>This guide helps you navigate the portal and find research projects.</p>
+
+      <h2>Viewing Projects</h2>
+      <p>
+        The main page displays a list of available research projects. Each
+        project card shows key information:
+      </p>
+      <ul>
+        <li><strong>Project Title:</strong>
+          The name of the research project.</li>
+        <li><strong>Research Area:</strong>
+          The field(s) the project falls under.</li>
+        <li><strong>Dates:</strong>
+          Start and End dates (if specified).</li>
+        <li><strong>Positions:</strong>
+          Number of students needed.</li>
+        <li><strong>Description:</strong>
+          A brief overview of the research.</li>
+        <li><strong>Faculty:</strong>
+          The professor(s) leading the project.</li>
+        <li><strong>Contact:</strong>
+          Email address(es) for the faculty or admin contact.</li>
+      </ul>
+      <p>
+        Scroll through the page to see all active projects. Projects might have
+        different availability types like "One semester", "Date range", or
+        "Anytime".
+      </p>
+      <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of a project card ]</div> %>
+
+      <h2>Searching for Projects</h2>
+      <p>
+        Use the search bar at the top of the projects list to find specific
+        opportunities. You can search by:
+      </p>
+      <ul>
+        <li>Project Title</li>
+        <li>Research Area</li>
+        <li>Faculty Name or Email</li>
+        <li>Keywords in the description (may vary based on implementation)</li>
+      </ul>
+      <p>
+        Enter your search term and click the "Search" button. To see all
+        projects again, click the "Reset" button.
+      </p>
+      <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the search bar ]</div> %>
+
+      <h2>Contacting Faculty</h2>
+      <p>
+        If you have questions about a specific project, you can use the contact
+        email address listed on the project card to reach out directly to the
+        faculty member or admin associated with it.
+      </p>
+
+      <h2>Applying for Projects</h2>
+      <p>
+        To apply for projects, you need to be signed in as a student. If you
+        are not signed in, you will see a prompt to sign in using your Google
+        account.
+      </p>
+      <%= button_to "Sign in with Google",
+      user_google_oauth2_omniauth_authorize_path,
+      method: :post,
+      class: "btn btn-primary mt-2",
+      data: {
+        turbo: false,
+      } %>
+      <p class="mt-3">
+        If you are a student, please sign in and refer to the Student Help
+        section for instructions on how to apply.
+      </p>
+    </div>
+  </body>
+</html>
