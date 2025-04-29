@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Help - Research Portal</title>
+    <%= render "help/common_style" %>
+  </head>
+  <body>
+    <div class="header-bar">
+      <h1>Admin Help: Managing Projects</h1>
+      <%= link_to "Back to Projects", projects_path, class: "btn-back" %>
+    </div>
+
+    <div class="container">
+      <h2>Welcome, Admin!</h2>
+      <p>This guide focuses on creating and managing research projects. For
+        managing users (Faculty, Students, Admins), please refer to the
+        separate
+        <strong>Admin Guide</strong>
+        accessible from the header.</p>
+
+      <h2>Creating a New Project</h2>
+      <p>As an Admin, you can create projects just like faculty members.</p>
+      <ol>
+        <li>Ensure you are signed in with your university Google account.</li>
+        <li>
+          In the header at the top right of the page, click the
+          <strong>"Create New Project"</strong>
+          link.
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the header showing 'Create New Project' link ]</div> %>
+        </li>
+        <li>
+          You will be directed to the "Create New Research Project" form.
+        </li>
+        <li>
+          Fill out the form fields accurately. Required fields are marked and
+          must be completed:
+          <ul>
+            <li><strong>Project Title:*</strong>
+              A clear and concise title.</li>
+            <li><strong>Description:*</strong>
+              Detailed information about the research goals, tasks, and
+              expected outcomes.</li>
+            <li><strong>Number of Positions:*</strong>
+              How many students you are looking for (must be 1 or more).</li>
+            <li><strong>Areas of Research:*</strong>
+              Keywords or phrases describing the research field(s).</li>
+            <li>
+              <strong>Availability:*</strong>
+              Choose one option:
+              <ul>
+                <li><strong>One semester:</strong>
+                  Select the specific semester (Spring, Summer, Fall) and
+                  year.</li>
+                <li><strong>Date range:</strong>
+                  Select specific start and end dates using the date pickers.
+                  The end date must be on or after the start date.</li>
+                <li><strong>Anytime:</strong>
+                  Use this for ongoing projects with no fixed end date (it sets
+                  a very distant end date internally).</li>
+              </ul>
+            </li>
+            <li><strong>Preferred Class (Optional):</strong>
+              Any preferred classification (e.g., Junior, Senior).</li>
+            <li><strong>Other Comments (Optional):</strong>
+              Any additional relevant information.</li>
+          </ul>
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the New Project form ]</div> %>
+          <p><strong>Note:</strong>
+            When an Admin creates a project, the project is associated with the
+            Admin account, not a specific faculty member unless manually
+            assigned later (if that feature exists).</p>
+        </li>
+        <li>Review all the information you entered.</li>
+        <li>Click the
+          <strong>"Create Project"</strong>
+          button at the bottom.</li>
+      </ol>
+      <p>
+        Upon successful creation, you will be redirected to the project's
+        detail page, and a confirmation message will appear. The project will
+        now be visible on the main projects list. An email notification will
+        also be sent to all registered students about the new project.
+      </p>
+
+      <hr style="margin: 30px 0;">
+
+      <h2>Editing Any Project</h2>
+      <p>As an Admin, you have the ability to edit
+        <strong>any</strong>
+        project listed on the portal, regardless of who created it.</p>
+      <ol>
+        <li>Navigate to the main projects list page (`/projects`).</li>
+        <li>Find the project you wish to edit.</li>
+        <li>
+          On the top-right corner of that project's card, you will see an
+          <strong>"Edit"</strong>
+          button. Click it.
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the 'Edit' button on a project card ]</div> %>
+        </li>
+        <li>
+          You will be taken to the "Edit Project" form, pre-filled with the
+          project's current details.
+        </li>
+        <li>Modify any fields as needed.</li>
+        <li>Click the
+          <strong>"Update Project"</strong>
+          button at the bottom.</li>
+      </ol>
+      <p>
+        The project details will be updated, and you will be redirected back to
+        the project's detail page with a confirmation message.
+      </p>
+
+      <h2>Deleting Any Project</h2>
+      <p>As an Admin, you can also delete any project.</p>
+      <ol>
+        <li>Navigate to the project's detail page (by clicking its title on the
+          main list).</li>
+        <li>Look for a
+          <strong>"Delete Project"</strong>
+          button or link (its exact location might vary, often near edit
+          options or at the bottom).</li>
+        <li>Click the delete button/link.</li>
+        <li>You will likely be asked to confirm the deletion.</li>
+        <li>Once confirmed, the project will be permanently removed from the
+          portal.</li>
+      </ol>
+      <p><strong>Caution:</strong>
+        Deleting a project is irreversible. Ensure you intend to remove it
+        permanently.</p>
+
+      <hr style="margin: 30px 0;">
+
+      <h2>Admin Dashboard</h2>
+      <p>
+        Remember, managing user accounts (Students, Faculty, other Admins) is
+        done through the
+        <strong>Admin Dashboard</strong>. Access this using the "Admin Dashboard" link in the header, and refer
+        to the "Admin Guide" (also linked in the header) for instructions on
+        using the dashboard features.
+      </p>
+
+    </div>
+  </body>
+</html>

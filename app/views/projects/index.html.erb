@@ -38,8 +38,15 @@
       <%= link_to "Admin Dashboard", admin_dashboard_path, class: "nav-link" %>
     <% end %>
 
-    <%= link_to "Documentation", documentation_path, class: "nav-link" %>
-    
+    <%# --- NEW: General Help Link (Visible to all signed-in users) --- %>
+    <%= link_to "Help", help_path, class: "nav-link" %>
+
+    <%# --- UPDATED: Admin Dashboard Documentation Link (Conditional: Admin only & Renamed) --- %>
+    <% if current_user.admin? %>
+      <%# This links to the existing documentation page (pages#documentation) via the renamed route helper %>
+      <%= link_to "Admin Guide", admin_dashboard_documentation_path, class: "nav-link" %>
+    <% end %>
+
     <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link" %>
   </div>
 </div>

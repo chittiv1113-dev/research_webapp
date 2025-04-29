@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Faculty Help - Research Portal</title>
+    <%= render "help/common_style" %>
+  </head>
+  <body>
+    <div class="header-bar">
+      <h1>Faculty Help</h1>
+      <%= link_to "Back to Projects", projects_path, class: "btn-back" %>
+    </div>
+
+    <div class="container">
+      <h2>Welcome, Faculty Member!</h2>
+      <p>This guide explains how to create and manage your research projects on
+        the portal.</p>
+
+      <h2>Creating a New Project</h2>
+      <ol>
+        <li>Ensure you are signed in with your university Google account.</li>
+        <li>
+          In the header at the top right of the page, click the
+          <strong>"Create New Project"</strong>
+          link.
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the header showing 'Create New Project' link ]</div> %>
+        </li>
+        <li>
+          You will be directed to the "Create New Research Project" form.
+        </li>
+        <li>
+          Fill out the form fields accurately. Required fields are marked and
+          must be completed:
+          <ul>
+            <li><strong>Project Title:*</strong>
+              A clear and concise title.</li>
+            <li><strong>Description:*</strong>
+              Detailed information about the research goals, tasks, and
+              expected outcomes.</li>
+            <li><strong>Number of Positions:*</strong>
+              How many students you are looking for (must be 1 or more).</li>
+            <li><strong>Areas of Research:*</strong>
+              Keywords or phrases describing the research field(s).</li>
+            <li>
+              <strong>Availability:*</strong>
+              Choose one option:
+              <ul>
+                <li><strong>One semester:</strong>
+                  Select the specific semester (Spring, Summer, Fall) and
+                  year.</li>
+                <li><strong>Date range:</strong>
+                  Select specific start and end dates using the date pickers.
+                  The end date must be on or after the start date.</li>
+                <li><strong>Anytime:</strong>
+                  Use this for ongoing projects with no fixed end date (it sets
+                  a very distant end date internally).</li>
+              </ul>
+            </li>
+            <li><strong>Preferred Class (Optional):</strong>
+              Any preferred classification (e.g., Junior, Senior).</li>
+            <li><strong>Other Comments (Optional):</strong>
+              Any additional relevant information.</li>
+          </ul>
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the New Project form ]</div> %>
+        </li>
+        <li>Review all the information you entered.</li>
+        <li>Click the
+          <strong>"Create Project"</strong>
+          button at the bottom.</li>
+      </ol>
+      <p>
+        Upon successful creation, you will be redirected to the project's
+        detail page, and a confirmation message will appear. The project will
+        now be visible on the main projects list. An email notification will
+        also be sent to all registered students about the new project.
+      </p>
+
+      <hr style="margin: 30px 0;">
+
+      <h2>Editing Your Projects</h2>
+      <ol>
+        <li>Navigate to the main projects list page (`/projects`).</li>
+        <li>Find the project you wish to edit.</li>
+        <li>
+          On the top-right corner of that project's card, you will see an
+          <strong>"Edit"</strong>
+          button. Click it. (Note: You will only see this button on projects
+          associated with your faculty account).
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the 'Edit' button on a project card ]</div> %>
+        </li>
+        <li>
+          You will be taken to the "Edit Project" form, which looks similar to
+          the creation form but pre-filled with the project's current details.
+        </li>
+        <li>Modify any fields as needed.</li>
+        <li>Click the
+          <strong>"Update Project"</strong>
+          button at the bottom.</li>
+      </ol>
+      <p>
+        The project details will be updated, and you will be redirected back to
+        the project's detail page with a confirmation message.
+      </p>
+
+      <h2>Deleting Your Projects</h2>
+      <p>
+        Currently, project deletion might be restricted to Admins. If you need
+        a project removed, please contact a portal administrator. If a "Delete"
+        button becomes available next to the "Edit" button on your project card
+        in the future, clicking it will permanently remove the project after
+        confirmation.
+      </p>
+
+    </div>
+  </body>
+</html>

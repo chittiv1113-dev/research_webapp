@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Student Help - Research Portal</title>
+    <%= render "help/common_style" %>
+  </head>
+  <body>
+    <div class="header-bar">
+      <h1>Student Help</h1>
+      <%= link_to "Back to Projects", projects_path, class: "btn-back" %>
+    </div>
+
+    <div class="container">
+      <h2>Welcome, Student!</h2>
+      <p>This guide covers everything in the General Help section, plus specific
+        instructions for applying to projects.</p>
+
+      <%# Include General Help Content (or link to it) %>
+      <%# Option 1: Render the general help partial if you create one %>
+      <%# render 'help/general_content' %>
+      <%# Option 2: Briefly summarize general features %>
+      <h2>Viewing and Searching Projects</h2>
+      <p>
+        As covered in the general help, you can browse the main page to see
+        project details (title, description, faculty, contact, dates, etc.) and
+        use the search bar to find specific projects.
+      </p>
+      <p>
+        Remember to check the faculty contact email on the project card if you
+        have questions before applying.
+      </p>
+
+      <hr style="margin: 30px 0;">
+
+      <h2>Applying for a Project</h2>
+      <p>
+        Once you find a project you're interested in and are ready to apply:
+      </p>
+      <ol>
+        <li>Ensure you are signed in with your university Google account.</li>
+        <li>Locate the project card for the desired project on the main projects
+          page.</li>
+        <li>
+          At the bottom-right of the project card, you will find an
+          <strong>"Apply for this Project"</strong>
+          button. Click this button.
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the 'Apply' button on a project card ]</div> %>
+        </li>
+        <li>
+          You will be taken to the application form specific to that project.
+        </li>
+        <li>
+          Fill out the application form completely. Fields marked with an
+          asterisk (*) are required. The form typically asks for:
+          <ul>
+            <li>Your Name (Last, First)</li>
+            <li>UIN</li>
+            <li>Texas A&M Email (may be pre-filled)</li>
+            <li>Reason for interest in the field</li>
+            <li>Relevant personal projects, classes, or work experience (optional
+              but recommended)</li>
+            <li>GitHub Link (optional)</li>
+          </ul>
+          <%# <div class="screenshot-placeholder">[ Placeholder: Screenshot of the application form ]</div> %>
+        </li>
+        <li>Review your answers carefully.</li>
+        <li>Click the
+          <strong>"Submit Application"</strong>
+          button at the bottom of the form.</li>
+      </ol>
+      <p>
+        After submission, your application will be sent to the faculty
+        member(s) associated with the project. You should see a confirmation
+        message on the screen. You can cancel the application process at any
+        time before submitting by clicking the "Cancel" button, which will take
+        you back to the project details page.
+      </p>
+
+    </div>
+  </body>
+</html>
